@@ -1,26 +1,23 @@
 package com.activetasks.activity;
 
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import com.activetasks.activetasks.R;
 import com.activetasks.adapter.TabsPagerAdapter;
+import com.activetasks.adapter.TaskAdapter;
+import com.activetasks.pojo.Task;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener{
 
@@ -37,6 +34,15 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     private ActionBar actionBar;
 
     private String[] tabNames = {"Dashboard", "Task", "Group"};
+
+    private ListView listViewGroup;
+    private ListView listViewTask;
+
+    private TaskAdapter taskAdapter;
+
+/************************************* Array lists for list views *******************************/
+    private List<Task> tasks = new ArrayList<>();
+/************************************* Array lists for list views *******************************/
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -65,8 +71,14 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             tab.setTabListener(this);
             actionBar.addTab(tab);
         }
+//        Log.d("mytag",">>>>>> " + (findViewById(R.id.listViewGroup)==null));
+//
+//        listViewGroup = (ListView)findViewById(R.id.listViewGroup);
+//        listViewTask = (ListView)findViewById(R.id.listViewTask);
+//
+//        groupAdapter = new GroupAdapter(MainActivity.this, groups);
+//        listViewGroup.setAdapter(groupAdapter);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
