@@ -20,12 +20,10 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 	private Activity activity;
 	private List<Task> items;
 	private Task task;
-	private int row;
 
-	public TaskAdapter(Activity act, int resource, List<Task> arrayList) {
-        super(act, resource, arrayList);
+	public TaskAdapter(Activity act, List<Task> arrayList) {
+        super(act, R.layout.layout_list_task, arrayList);
 		this.activity = act;
-		this.row = resource;
 		this.items = arrayList;
 	}
 
@@ -36,7 +34,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 		if (view == null) {
 			LayoutInflater inflater = (LayoutInflater) activity
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			view = inflater.inflate(row, null);
+			view = inflater.inflate(R.layout.layout_list_task, null);
 
 			holder = new ViewHolder();
 			view.setTag(holder);
@@ -54,17 +52,21 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 		holder.date = (TextView) view.findViewById(R.id.tvdate);
 		holder.statusImage = (ImageView) view.findViewById(R.id.image);
 
-		if (holder.title != null && null != task.getTitle()
-				&& task.getTitle().trim().length() > 0) {
-			holder.title.setText(Html.fromHtml(task.getTitle()));
+		if (holder.title != null && null != task.getName()
+				&& task.getName().trim().length() > 0) {
+			holder.title.setText(Html.fromHtml(task.getName()));
 		}
 		if (holder.description != null && null != task.getDescription()
 				&& task.getDescription().trim().length() > 0) {
 			holder.description.setText(Html.fromHtml(task.getDescription()));
 		}
-		if (holder.date != null && null != task.getDate()
-				&& task.getDate().trim().length() > 0) {
-			holder.date.setText(Html.fromHtml(task.getDate()));
+		if (
+                holder.date != null &&
+                task.getStartDate() != null &&
+                task.getEndDate() != null &&
+                task.getStartDate().trim().length() > 0 &&
+                task.getEndDate().trim().length() > 0) {
+			        holder.date.setText(Html.fromHtml(task.getStartDate()) + " - " + Html.fromHtml(task.getEndDate()));
 		}
 		if (holder.statusImage != null) {
     		holder.statusImage.setImageResource(R.drawable.ic_launcher);

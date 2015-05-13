@@ -4,18 +4,23 @@ package com.activetasks.pojo;
  * Created by ashutosh on 07/05/2015.
  */
 public class Task {
-    private String title;
+    private String name;
     private String description;
-    private String date;
+    private String startDate;
+    private String endDate;
     private String statusImage;
-    private Integer id;
+    private String taskType;
 
-    public String getTitle() {
-        return title;
+    private Integer id;
+    private Integer groupId;
+    private Integer userId;             // created by
+
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -26,12 +31,20 @@ public class Task {
         this.description = description;
     }
 
-    public String getDate() {
-        return date;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public String getStatusImage() {
@@ -42,11 +55,35 @@ public class Task {
         this.statusImage = statusImage;
     }
 
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

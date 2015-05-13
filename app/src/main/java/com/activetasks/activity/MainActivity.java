@@ -71,13 +71,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             tab.setTabListener(this);
             actionBar.addTab(tab);
         }
-//        Log.d("mytag",">>>>>> " + (findViewById(R.id.listViewGroup)==null));
-//
-//        listViewGroup = (ListView)findViewById(R.id.listViewGroup);
-//        listViewTask = (ListView)findViewById(R.id.listViewTask);
-//
-//        groupAdapter = new GroupAdapter(MainActivity.this, groups);
-//        listViewGroup.setAdapter(groupAdapter);
     }
 
     @Override
