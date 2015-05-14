@@ -8,10 +8,18 @@
     tools:context="com.activetasks.activity.MemberActivity">
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Listing group members"
+        android:id="@+id/textView"
+        android:layout_marginBottom="20dp" />
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listViewMembers"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"/>
+
 </LinearLayout>

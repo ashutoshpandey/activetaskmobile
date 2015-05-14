@@ -2,23 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="6dip" >
+    android:orientation="vertical" >
 
     <CheckBox
         android:id="@+id/chkMember"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:layout_marginLeft="10dp"
         android:text="" />
 
     <TextView
         android:id="@+id/tvMember"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_alignBaseline="@+id/chkMember"
         android:layout_alignBottom="@+id/chkMember"
         android:layout_toRightOf="@+id/chkMember"

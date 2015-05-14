@@ -12,6 +12,15 @@
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_marginBottom="8dp" android:visibility="gone" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Authenticate"
+        android:id="@+id/lbAuthenticate"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp" />
+
     <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -45,19 +54,22 @@
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified" android:inputType="textPassword"
-                    android:maxLines="1" android:singleLine="true" />
+                    android:maxLines="1" android:singleLine="true"
+                    android:layout_marginTop="20dp" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Login"
-                    android:id="@+id/btnLogin" />
+                    android:id="@+id/btnLogin"
+                    android:layout_marginTop="20dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/tvMessage"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
                     android:gravity="fill_horizontal" />
 
             </LinearLayout>
