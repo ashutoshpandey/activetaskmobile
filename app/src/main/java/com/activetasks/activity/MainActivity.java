@@ -33,7 +33,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     private ViewPager viewPager;
     private ActionBar actionBar;
 
-    private String[] tabNames = {"Dashboard", "Task", "Group"};
+    private String[] tabNames = {"Dashboard", "Tasks", "Groups", "Contacts"};
 
     private ListView listViewGroup;
     private ListView listViewTask;
@@ -88,8 +88,11 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_create_group) {
             return true;
+        }
+        else if(id == R.id.action_create_task){
+
         }
         else if(id == R.id.logout){
             finish();

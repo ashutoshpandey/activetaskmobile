@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.activetasks.activity.MainActivity">
 
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+    <item android:id="@+id/action_create_task" android:title="Create Task"
+        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/action_create_group" android:title="Create Group"
         android:orderInCategory="100" app:showAsAction="never" />
 
     <item android:id="@+id/logout" android:title="@string/logout"

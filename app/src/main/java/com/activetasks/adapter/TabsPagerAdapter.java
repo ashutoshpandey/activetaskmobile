@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.activetasks.fragment.ContactFragment;
 import com.activetasks.fragment.GroupFragment;
 import com.activetasks.fragment.MainFragment;
 import com.activetasks.fragment.TaskFragment;
@@ -28,6 +29,8 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
                 return new TaskFragment();
             case 2:
                 return new GroupFragment();
+            case 3:
+                return new ContactFragment();
         }
 
         return null;
@@ -35,7 +38,7 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
 }
