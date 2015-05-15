@@ -52,7 +52,6 @@ public class TaskDataActivity extends ActionBarActivity {
         private String url = "http://10.0.2.2/activetask/data-all-task-items/" + taskId;
 
         public TaskItemReadTask() {
-            execute();
         }
 
         public void execute(){

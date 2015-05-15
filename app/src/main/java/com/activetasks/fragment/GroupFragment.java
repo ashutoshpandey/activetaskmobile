@@ -67,7 +67,6 @@ public class GroupFragment extends Fragment {
         private String url = "http://10.0.2.2/activetask/data-all-groups/" + Data.userId;
 
         public GroupReadTask() {
-            execute();
         }
 
         public void execute(){

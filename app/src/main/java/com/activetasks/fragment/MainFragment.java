@@ -60,7 +60,6 @@ public class MainFragment extends Fragment {
         private String url = "http://10.0.2.2/activetask/data-pending-tasks-count/" + Data.userId;
 
         public RemainingTaskReadTask() {
-            execute();
         }
 
         public void execute(){

@@ -75,7 +75,6 @@ public class TaskFragment extends Fragment {
         private String url = "http://10.0.2.2/activetask/data-all-tasks/" + Data.userId;
 
         public TaskReadTask() {
-            execute();
         }
 
         public void execute(){

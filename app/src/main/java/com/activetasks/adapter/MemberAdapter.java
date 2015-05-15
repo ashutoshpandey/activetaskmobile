@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.activetasks.activetasks.R;
 import com.activetasks.pojo.GroupMember;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class MemberAdapter extends ArrayAdapter<GroupMember> {
@@ -21,7 +23,7 @@ public class MemberAdapter extends ArrayAdapter<GroupMember> {
 	private Activity activity;
 	private List<GroupMember> items;
 	private GroupMember groupMember;
-	private int row;
+	private HashSet<Integer> selectedGroupMembers = new HashSet<>();
 
 	public MemberAdapter(Activity act, List<GroupMember> arrayList) {
         super(act, R.layout.layout_list_group_member, arrayList);
@@ -52,6 +54,20 @@ public class MemberAdapter extends ArrayAdapter<GroupMember> {
 
 		holder.name = (TextView) view.findViewById(R.id.tvMember);
         holder.checkMember = (CheckBox) view.findViewById(R.id.chkMember);
+        holder.checkMember.setTag(groupMember);
+
+        holder.checkMember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                Integer memberId = ((GroupMember)((CheckBox)buttonView).getTag()).getId();
+
+                if(isChecked)
+                    selectedGroupMembers.add(memberId);
+                else
+                    selectedGroupMembers.remove(memberId);
+            }
+        });
 
 		if (holder.name != null && null != groupMember.getName()
 				&& groupMember.getName().trim().length() > 0) {
@@ -66,4 +82,7 @@ public class MemberAdapter extends ArrayAdapter<GroupMember> {
         public TextView name;
 	}
 
+    public HashSet<Integer> getSelectedGroupMembers(){
+        return selectedGroupMembers;
+    }
 }

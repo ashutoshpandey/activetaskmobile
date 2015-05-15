@@ -10,5 +10,6 @@
     <string name="title_activity_member">Members in the group</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_task_data">TaskDataActivity</string>
+    <string name="group_members_remove">Remove</string>
 
 </resources>
