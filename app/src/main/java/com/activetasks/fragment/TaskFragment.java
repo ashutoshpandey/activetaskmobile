@@ -72,7 +72,7 @@ public class TaskFragment extends Fragment {
      */
     class TaskReadTask implements JsonReaderSupport {
 
-        private String url = "http://10.0.2.2/activetask/data-all-tasks/" + Data.userId;
+        private String url =  Data.server + "data-all-tasks/" + Data.userId;
 
         public TaskReadTask() {
         }

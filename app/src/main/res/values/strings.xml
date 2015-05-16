@@ -11,5 +11,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_task_data">TaskDataActivity</string>
     <string name="group_members_remove">Remove</string>
+    <string name="title_activity_create_task">CreateTaskActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="title_activity_create_group">CreateGroupActivity</string>
 
 </resources>

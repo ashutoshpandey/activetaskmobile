@@ -57,7 +57,7 @@ public class MainFragment extends Fragment {
      */
     class RemainingTaskReadTask implements JsonReaderSupport {
 
-        private String url = "http://10.0.2.2/activetask/data-pending-tasks-count/" + Data.userId;
+        private String url =  Data.server + "data-pending-tasks-count/" + Data.userId;
 
         public RemainingTaskReadTask() {
         }

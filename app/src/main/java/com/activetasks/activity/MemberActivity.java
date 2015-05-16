@@ -88,7 +88,7 @@ public class MemberActivity extends ActionBarActivity {
 
     class GroupMemberReadTask implements JsonReaderSupport {
 
-        private String url = "http://10.0.2.2/activetask/data-all-group-members/" + groupId;
+        private String url =  Data.server + "data-all-group-members/" + groupId;
 
         public GroupMemberReadTask(){
         }

@@ -84,7 +84,7 @@ public class LoginActivity extends Activity {
 
         private final String mEmail;
         private final String mPassword;
-        private String url = "http://10.0.2.2/activetask/is-valid-user";
+        private String url = Data.server + "is-valid-user";
 
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -109,6 +109,8 @@ public class LoginActivity extends Activity {
                 if (loginResult.toLowerCase().contains("correct")) {
 
                     Data.userId = Integer.parseInt(json.getString("id"));
+
+                    tvMessage.setText("Authenticated");
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);

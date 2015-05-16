@@ -12,6 +12,7 @@ import com.activetasks.adapter.TaskItemAdapter;
 import com.activetasks.helper.DateHelper;
 import com.activetasks.pojo.GroupMember;
 import com.activetasks.pojo.TaskItem;
+import com.activetasks.util.Data;
 import com.activetasks.util.GroupMemberReader;
 import com.activetasks.util.JsonReaderSupport;
 
@@ -49,7 +50,7 @@ public class TaskDataActivity extends ActionBarActivity {
 
     class TaskItemReadTask implements JsonReaderSupport {
 
-        private String url = "http://10.0.2.2/activetask/data-all-task-items/" + taskId;
+        private String url =  Data.server + "data-all-task-items/" + taskId;
 
         public TaskItemReadTask() {
         }

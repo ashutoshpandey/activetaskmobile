@@ -18,14 +18,14 @@ import com.activetasks.pojo.Contact;
 import java.util.HashSet;
 import java.util.List;
 
-public class PeopleAdapter extends ArrayAdapter<Contact> {
+public class ContactAdapter extends ArrayAdapter<Contact> {
 
 	private Activity activity;
 	private List<Contact> items;
 	private Contact people;
 	private HashSet<Integer> selectedPeople = new HashSet<>();
 
-	public PeopleAdapter(Activity act, List<Contact> arrayList) {
+	public ContactAdapter(Activity act, List<Contact> arrayList) {
         super(act, R.layout.layout_list_group_member, arrayList);
 		this.activity = act;
 		this.items = arrayList;

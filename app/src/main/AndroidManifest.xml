@@ -53,7 +53,17 @@
         </activity>
         <activity
             android:name="com.activetasks.activity.TaskDataActivity"
-            android:label="@string/title_activity_task_data" >
+            android:label="" >
+        </activity>
+        <activity
+            android:name="com.activetasks.activity.CreateTaskActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:label="Create a new task">
+        </activity>
+        <activity
+            android:name="com.activetasks.activity.CreateGroupActivity"
+            android:label="Create a new group"
+            android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
     </application>
 

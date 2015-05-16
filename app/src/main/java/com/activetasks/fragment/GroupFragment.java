@@ -64,7 +64,7 @@ public class GroupFragment extends Fragment {
      */
     class GroupReadTask implements JsonReaderSupport {
 
-        private String url = "http://10.0.2.2/activetask/data-all-groups/" + Data.userId;
+        private String url =  Data.server + "data-all-groups/" + Data.userId;
 
         public GroupReadTask() {
         }

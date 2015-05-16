@@ -3,6 +3,7 @@ package com.activetasks.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
@@ -89,6 +90,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_create_group) {
+            Intent i = new Intent(MainActivity.this, CreateGroupActivity.class);
+            startActivity(i);
             return true;
         }
         else if(id == R.id.action_create_task){

@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.activetasks.activetasks.R;
 import com.activetasks.activity.LoginActivity;
-import com.activetasks.adapter.PeopleAdapter;
+import com.activetasks.adapter.ContactAdapter;
 import com.activetasks.pojo.Contact;
 import com.activetasks.util.Data;
 import com.activetasks.util.JsonReaderSupport;
@@ -35,7 +35,7 @@ import java.util.List;
 public class ContactFragment extends Fragment {
 
     private List<Contact> contacts = new ArrayList<>();
-    private PeopleAdapter contactAdapter;
+    private ContactAdapter contactAdapter;
     private ListView contactView;
     private TextView tvContactLabel;
 
@@ -52,7 +52,7 @@ public class ContactFragment extends Fragment {
 
         contactView.setOnItemClickListener(new ListClickHandler());
 
-        contactAdapter = new PeopleAdapter(getActivity(), contacts);
+        contactAdapter = new ContactAdapter(getActivity(), contacts);
 
         contactView.setAdapter(contactAdapter);
 
@@ -67,7 +67,7 @@ public class ContactFragment extends Fragment {
      */
     class TaskReadTask implements JsonReaderSupport {
 
-        private String url = "http://10.0.2.2/activetask/data-all-contacts/" + Data.userId;
+        private String url =  Data.server + "data-all-contacts/" + Data.userId;
 
         public TaskReadTask() {
         }
