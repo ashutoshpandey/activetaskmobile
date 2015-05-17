@@ -15,12 +15,12 @@ import java.io.InputStreamReader;
 /**
  * Created by ashutosh on 10/05/2015.
  */
-public class PeopleReader extends AsyncTask<String, Integer, String> {
+public class ContactSelectorReader extends AsyncTask<String, Integer, String> {
 
     private JsonReaderSupport jsonReaderSource;
     private String url;
 
-    public PeopleReader(JsonReaderSupport jsonReaderSource, String url){
+    public ContactSelectorReader(JsonReaderSupport jsonReaderSource, String url){
         this.jsonReaderSource = jsonReaderSource;
         this.url = url;
     }

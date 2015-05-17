@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -95,7 +96,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             return true;
         }
         else if(id == R.id.action_create_task){
-
+            Intent i = new Intent(MainActivity.this, CreateTaskActivity.class);
+            startActivity(i);
+            return true;
         }
         else if(id == R.id.logout){
             finish();

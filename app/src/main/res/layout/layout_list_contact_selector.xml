@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <CheckBox
+        android:id="@+id/chkContactSelector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/tvContactSelector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignBaseline="@+id/chkContactSelector"
+        android:layout_alignBottom="@+id/chkContactSelector"
+        android:layout_toRightOf="@+id/chkContactSelector"
+        android:text="" />
+
+</RelativeLayout>

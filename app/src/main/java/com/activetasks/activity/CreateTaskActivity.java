@@ -2,15 +2,21 @@ package com.activetasks.activity;
 
 import com.activetasks.activity.util.SystemUiHider;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.activetasks.activetasks.R;
+import com.activetasks.util.ContactSelectorReader;
+import com.activetasks.util.CreateTaskReader;
+import com.activetasks.util.Data;
+import com.activetasks.util.JsonReaderSupport;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -19,33 +25,20 @@ import com.activetasks.activetasks.R;
  * @see SystemUiHider
  */
 public class CreateTaskActivity extends Activity {
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
-    private static final boolean AUTO_HIDE = true;
 
-    /**
-     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-     * user interaction before hiding the system UI.
-     */
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
+    private TextView tvCreateTaskMessage;
 
-    /**
-     * If set, will toggle the system UI visibility upon interaction. Otherwise,
-     * will show the system UI visibility upon interaction.
-     */
-    private static final boolean TOGGLE_ON_CLICK = true;
+    private EditText etName;
+    private EditText etDescription;
 
-    /**
-     * The flags to pass to {@link SystemUiHider#getInstance}.
-     */
-    private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
+    private Button btnCreateTask;
 
-    /**
-     * The instance of the {@link SystemUiHider} for this activity.
-     */
-    private SystemUiHider mSystemUiHider;
+    private RadioButton rdContact;
+    private RadioButton rdGroup;
+    private RadioButton rdTaskNormal;
+    private RadioButton rdTaskTimed;
+
+    private String mSelectedIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,109 +46,155 @@ public class CreateTaskActivity extends Activity {
 
         setContentView(R.layout.activity_create_task);
 
-        final View controlsView = findViewById(R.id.fullscreen_content_controls);
-        final View contentView = findViewById(R.id.fullscreen_content);
+        etName = (EditText)findViewById(R.id.etCreateTaskName);
+        etDescription = (EditText)findViewById(R.id.etCreateTaskDescription);
 
-        // Set up an instance of SystemUiHider to control the system UI for
-        // this activity.
-        mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
-        mSystemUiHider.setup();
-        mSystemUiHider
-                .setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
-                    // Cached values.
-                    int mControlsHeight;
-                    int mShortAnimTime;
+        tvCreateTaskMessage = (TextView) findViewById(R.id.tvCreateTaskMessage);
 
-                    @Override
-                    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-                    public void onVisibilityChange(boolean visible) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-                            // If the ViewPropertyAnimator API is available
-                            // (Honeycomb MR2 and later), use it to animate the
-                            // in-layout UI controls at the bottom of the
-                            // screen.
-                            if (mControlsHeight == 0) {
-                                mControlsHeight = controlsView.getHeight();
-                            }
-                            if (mShortAnimTime == 0) {
-                                mShortAnimTime = getResources().getInteger(
-                                        android.R.integer.config_shortAnimTime);
-                            }
-                            controlsView.animate()
-                                    .translationY(visible ? 0 : mControlsHeight)
-                                    .setDuration(mShortAnimTime);
-                        } else {
-                            // If the ViewPropertyAnimator APIs aren't
-                            // available, simply show or hide the in-layout UI
-                            // controls.
-                            controlsView.setVisibility(visible ? View.VISIBLE : View.GONE);
-                        }
+        btnCreateTask = (Button) findViewById(R.id.btnCreateTask);
 
-                        if (visible && AUTO_HIDE) {
-                            // Schedule a hide().
-                            delayedHide(AUTO_HIDE_DELAY_MILLIS);
-                        }
-                    }
-                });
+        rdContact = (RadioButton) findViewById(R.id.rdCreateTaskAssignToContact);
+        rdGroup = (RadioButton) findViewById(R.id.rdCreateTaskAssignToGroup);
+        rdTaskNormal = (RadioButton) findViewById(R.id.rdCreateTaskNormal);
+        rdTaskTimed = (RadioButton) findViewById(R.id.rdCreateTaskTimed);
 
-        // Set up the user interaction to manually show or hide the system UI.
-        contentView.setOnClickListener(new View.OnClickListener() {
+        rdContact.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if (TOGGLE_ON_CLICK) {
-                    mSystemUiHider.toggle();
-                } else {
-                    mSystemUiHider.show();
-                }
+            public void onClick(View v) {
+                Intent i = new Intent(CreateTaskActivity.this, ContactSelectorActivity.class);
+                startActivityForResult(i, 1);
             }
         });
 
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        rdGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(CreateTaskActivity.this, GroupSelectorActivity.class);
+                startActivityForResult(i, 2);
+            }
+        });
+
+        btnCreateTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String name = etName.getText().toString();
+                String description = etDescription.getText().toString();
+                String taskType = null;
+                if(rdTaskNormal.isChecked())
+                    taskType = "normal";
+                else if(rdTaskTimed.isChecked())
+                    taskType = "timed";
+                else{
+                    tvCreateTaskMessage.setText("Please choose task type");
+                    return;
+                }
+
+                String assignedTo = null;
+                if(rdContact.isChecked())
+                    assignedTo = "contact";
+                else if(rdGroup.isChecked())
+                    assignedTo = "group";
+                else{
+                    tvCreateTaskMessage.setText("Please assign this task");
+                    return;
+                }
+
+                String startDate = etName.getText().toString();
+                String endDate = etName.getText().toString();
+
+                new CreateTask(name, description, taskType, assignedTo, mSelectedIds, startDate, endDate).execute();
+            }
+        });
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed here
 
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-        delayedHide(100);
+        if(data!=null){
+
+            if(requestCode==1)
+            {
+                mSelectedIds = data.getStringExtra("ids");
+            }
+            else if(requestCode==2){
+                mSelectedIds = data.getStringExtra("id");
+            }
+        }
     }
 
-
     /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
+     * Represents an asynchronous login/registration task used to authenticate
+     * the user.
      */
-    View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
+    class CreateTask implements JsonReaderSupport {
+
+        private final String mName;
+        private final String mDescription;
+        private final String mTaskType;
+        private final String mAssignedTo;
+        private final String mAssignIds;
+        private final String mStartDate;
+        private final String mEndDate;
+        private String url =  Data.server + "data-save-task";
+
+        public CreateTask(String name, String description, String taskType, String assignedTo, String assignIds, String startDate, String endDate) {
+            mName = name;
+            mDescription = description;
+            mTaskType = taskType;
+            mAssignedTo = assignedTo;
+            mAssignIds = assignIds;
+            mStartDate = startDate;
+            mEndDate = endDate;
+        }
+
+        public void execute(){
+
+            boolean valid = true;
+
+            if(mName.trim().length()==0)
+                valid = false;
+
+            if(valid){
+                tvCreateTaskMessage.setText("Creating");
+
+                CreateTaskReader reader = new CreateTaskReader(this, url);
+                reader.execute(new String[]{mName, mDescription, mTaskType, mAssignedTo, mAssignIds, mStartDate, mEndDate});
             }
-            return false;
+            else
+                tvCreateTaskMessage.setText("Form is incomplete");
         }
-    };
 
-    Handler mHideHandler = new Handler();
-    Runnable mHideRunnable = new Runnable() {
         @Override
-        public void run() {
-            mSystemUiHider.hide();
-        }
-    };
+        public void onJsonReadComplete(String result) {
 
-    /**
-     * Schedules a call to hide() in [delay] milliseconds, canceling any
-     * previously scheduled calls.
-     */
-    private void delayedHide(int delayMillis) {
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
+            try {
+                if (result.toLowerCase().contains("created")) {
+                    etName.setText("");
+                    etDescription.setText("");
+
+                    rdTaskTimed.setChecked(false);
+                    rdTaskNormal.setChecked(false);
+                    rdContact.setChecked(false);
+                    rdGroup.setChecked(false);
+
+                    etName.requestFocus();
+
+                    tvCreateTaskMessage.setText("Task created");
+                }
+                else if(result.toLowerCase().contains("duplicate"))
+                    tvCreateTaskMessage.setText("Duplicate name");
+                else if(result.toLowerCase().contains("invalid session")){
+                    Intent i = new Intent(CreateTaskActivity.this, LoginActivity.class);
+                    startActivity(i);
+                }
+            }
+            catch(Exception ex){
+                tvCreateTaskMessage.setText("Error : " + ex.getMessage());
+            }
+        }
     }
 }

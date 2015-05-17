@@ -12,20 +12,20 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.activetasks.activetasks.R;
-import com.activetasks.pojo.GroupMember;
 import com.activetasks.pojo.Contact;
+import com.activetasks.pojo.GroupMember;
 
 import java.util.HashSet;
 import java.util.List;
 
-public class ContactAdapter extends ArrayAdapter<Contact> {
+public class ContactSelectorAdapter extends ArrayAdapter<Contact> {
 
 	private Activity activity;
 	private List<Contact> items;
 	private Contact contact;
 	private HashSet<Integer> selectedContacts = new HashSet<>();
 
-	public ContactAdapter(Activity act, List<Contact> arrayList) {
+	public ContactSelectorAdapter(Activity act, List<Contact> arrayList) {
         super(act, R.layout.layout_list_group_member, arrayList);
 		this.activity = act;
 		this.items = arrayList;
@@ -39,7 +39,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 		if (view == null) {
 			LayoutInflater inflater = (LayoutInflater) activity
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			view = inflater.inflate(R.layout.layout_list_group_member, null);
+			view = inflater.inflate(R.layout.layout_list_contact_selector, null);
 
 			holder = new ViewHolder();
 			view.setTag(holder);
@@ -52,8 +52,8 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 
 		contact = items.get(position);
 
-		holder.name = (TextView) view.findViewById(R.id.tvMember);
-        holder.checkContact = (CheckBox) view.findViewById(R.id.chkMember);
+		holder.name = (TextView) view.findViewById(R.id.tvContactSelector);
+        holder.checkContact = (CheckBox) view.findViewById(R.id.chkContactSelector);
         holder.checkContact.setTag(contact);
 
         holder.checkContact.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

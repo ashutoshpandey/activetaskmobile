@@ -1,64 +1,85 @@
-package com.activetasks.fragment;
-
-/**
- * Created by ashutosh on 06/05/2015.
- */
+package com.activetasks.activity;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.activetasks.activetasks.R;
-import com.activetasks.activity.LoginActivity;
 import com.activetasks.adapter.ContactAdapter;
+import com.activetasks.adapter.ContactSelectorAdapter;
 import com.activetasks.pojo.Contact;
+import com.activetasks.util.ContactReader;
 import com.activetasks.util.Data;
 import com.activetasks.util.JsonReaderSupport;
-import com.activetasks.util.ContactReader;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-/**
- * A placeholder fragment containing a simple view.
- */
-public class ContactFragment extends Fragment {
+public class ContactSelectorActivity extends ActionBarActivity {
 
     private List<Contact> contacts = new ArrayList<>();
-    private ContactAdapter contactAdapter;
+    private ContactSelectorAdapter contactAdapter;
+
     private ListView contactView;
+
     private TextView tvContactLabel;
 
-    public ContactFragment() {
-    }
+    private Button btnContactSelector;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_contact_selector);
 
-        contactView = (ListView)rootView.findViewById(R.id.listViewContacts);
-        tvContactLabel = (TextView)rootView.findViewById(R.id.tvContactLabel);
+        contactView = (ListView)findViewById(R.id.lvContactSelector);
+        tvContactLabel = (TextView)findViewById(R.id.tvContactSelectorLabel);
+        btnContactSelector = (Button) findViewById(R.id.btnChooseContact);
 
-        contactView.setOnItemClickListener(new ListClickHandler());
+        btnContactSelector.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        contactAdapter = new ContactAdapter(getActivity(), contacts);
+                Set<Integer> groupMemberList = contactAdapter.getSelectedContacts();
+
+                if(groupMemberList!=null && groupMemberList.size()>0) {
+                    Object[] strArray = groupMemberList.toArray();
+
+                    StringBuilder strBuilder = new StringBuilder();
+
+                    for (Object str : strArray) {
+                        strBuilder.append(str).append(",");
+                    }
+
+                    if (strBuilder.toString().endsWith(","))
+                        strBuilder.deleteCharAt(strBuilder.length() - 1);
+
+                    String ids = strBuilder.toString();
+
+                    Intent intent = new Intent();
+                    intent.putExtra("ids", ids);
+                    setResult(1, intent);
+                    finish();
+                }
+            }
+        });
+
+        contactAdapter = new ContactSelectorAdapter(ContactSelectorActivity.this, contacts);
 
         contactView.setAdapter(contactAdapter);
 
         new ContactReadTask().execute();
-
-        return rootView;
     }
 
     /**
@@ -112,28 +133,14 @@ public class ContactFragment extends Fragment {
                     contactAdapter.notifyDataSetChanged();
                 }
                 else if(message.toLowerCase().contains("invalid session")){
-                    Intent i = new Intent(getActivity(), LoginActivity.class);
+                    Intent i = new Intent(ContactSelectorActivity.this, LoginActivity.class);
                     startActivity(i);
                 }
 
             }
             catch(Exception ex){
-                Log.d("Group ex", ex.getMessage());
+                Log.d("Contact ex", ex.getMessage());
             }
-        }
-    }
-
-    public class ListClickHandler implements AdapterView.OnItemClickListener{
-
-        @Override
-        public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
-            Contact task = contacts.get(position);
-
-            int peopleId = task.getId();
-
-//            Intent i = new Intent(getActivity(), TaskDataActivity.class);
-//            i.putExtra("taskId", taskId);
-//            startActivity(i);
         }
     }
 }

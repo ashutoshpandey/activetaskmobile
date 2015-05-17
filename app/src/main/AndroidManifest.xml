@@ -57,13 +57,21 @@
         </activity>
         <activity
             android:name="com.activetasks.activity.CreateTaskActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:label="Create a new task">
+            android:label="Create a new task"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity
             android:name="com.activetasks.activity.CreateGroupActivity"
             android:label="Create a new group"
-            android:windowSoftInputMode="adjustResize|stateHidden">
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.activetasks.activity.ContactSelectorActivity"
+            android:label="@string/title_activity_contact_selector" >
+        </activity>
+        <activity
+            android:name="com.activetasks.activity.GroupSelectorActivity"
+            android:label="@string/title_activity_group_selector" >
         </activity>
     </application>
 
