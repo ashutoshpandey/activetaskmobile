@@ -53,21 +53,6 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 		contact = items.get(position);
 
 		holder.name = (TextView) view.findViewById(R.id.tvMember);
-        holder.checkContact = (CheckBox) view.findViewById(R.id.chkMember);
-        holder.checkContact.setTag(contact);
-
-        holder.checkContact.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                Integer memberId = ((Contact) ((CheckBox) buttonView).getTag()).getId();
-
-                if (isChecked)
-                    selectedContacts.add(memberId);
-                else
-                    selectedContacts.remove(memberId);
-            }
-        });
 
 		if (holder.name != null && null != contact.getName()
 				&& contact.getName().trim().length() > 0) {
@@ -78,7 +63,6 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 	}
 
 	public class ViewHolder {
-        public CheckBox checkContact;
         public TextView name;
 	}
 

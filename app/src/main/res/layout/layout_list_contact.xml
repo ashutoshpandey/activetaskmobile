@@ -4,17 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <CheckBox
-        android:id="@+id/chkContact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:text="" />
-
     <TextView
         android:id="@+id/tvContact"
         android:layout_width="wrap_content"

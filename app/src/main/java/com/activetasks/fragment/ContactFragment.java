@@ -34,10 +34,11 @@ import java.util.List;
  */
 public class ContactFragment extends Fragment {
 
-    private List<Contact> contacts = new ArrayList<>();
     private ContactAdapter contactAdapter;
     private ListView contactView;
     private TextView tvContactLabel;
+
+    private List<Contact> contacts = new ArrayList<>();
 
     public ContactFragment() {
     }
@@ -56,9 +57,13 @@ public class ContactFragment extends Fragment {
 
         contactView.setAdapter(contactAdapter);
 
-        new ContactReadTask().execute();
+        loadContacts();
 
         return rootView;
+    }
+
+    public void loadContacts(){
+        new ContactReadTask().execute();
     }
 
     /**
@@ -108,6 +113,7 @@ public class ContactFragment extends Fragment {
                 }
                 else if(message.toLowerCase().contains("empty")){
                     tvContactLabel.setText("No contacts found");
+
                     contacts.clear();
                     contactAdapter.notifyDataSetChanged();
                 }
@@ -118,7 +124,8 @@ public class ContactFragment extends Fragment {
 
             }
             catch(Exception ex){
-                Log.d("Group ex", ex.getMessage());
+                Log.d("Contact ex", ex.getMessage());
+                ex.printStackTrace();
             }
         }
     }

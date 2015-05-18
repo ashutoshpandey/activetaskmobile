@@ -9,6 +9,15 @@
     <item android:id="@+id/action_create_group" android:title="Create Group"
         android:orderInCategory="100" app:showAsAction="never" />
 
+    <item android:id="@+id/action_create_contact" android:title="Create Contact"
+        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/action_manage_groups" android:title="Manage Groups"
+        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/action_manage_contacts" android:title="Manage Contacts"
+        android:orderInCategory="100" app:showAsAction="never" android:visible="false" />
+
     <item android:id="@+id/logout" android:title="@string/logout"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

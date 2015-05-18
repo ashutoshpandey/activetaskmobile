@@ -19,6 +19,7 @@ import android.widget.ListView;
 import com.activetasks.activetasks.R;
 import com.activetasks.adapter.TabsPagerAdapter;
 import com.activetasks.adapter.TaskAdapter;
+import com.activetasks.fragment.ContactFragment;
 import com.activetasks.pojo.Task;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener{
@@ -34,6 +35,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     private TabsPagerAdapter mAdapter;
     private ViewPager viewPager;
     private ActionBar actionBar;
+
+    private Menu menu;
 
     private String[] tabNames = {"Dashboard", "Tasks", "Groups", "Contacts"};
 
@@ -79,6 +82,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        this.menu = menu;
+
         return true;
     }
 
@@ -100,6 +106,11 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             startActivity(i);
             return true;
         }
+        else if(id == R.id.action_create_contact){
+            Intent i = new Intent(MainActivity.this, CreateContactActivity.class);
+            startActivity(i);
+            return true;
+        }
         else if(id == R.id.logout){
             finish();
         }
@@ -110,6 +121,13 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     @Override
     public void onTabSelected(Tab tab, FragmentTransaction fragmentTransaction) {
         viewPager.setCurrentItem(tab.getPosition());
+
+        int index = viewPager.getCurrentItem();
+
+        if(index==3) {
+            ContactFragment contactFragment = (ContactFragment) mAdapter.getItem(index);
+            contactFragment.loadContacts();
+        }
     }
 
     @Override

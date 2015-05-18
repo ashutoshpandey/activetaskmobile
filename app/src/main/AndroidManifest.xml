@@ -66,6 +66,11 @@
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity
+            android:name="com.activetasks.activity.CreateContactActivity"
+            android:label="Create a new contact"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
             android:name="com.activetasks.activity.ContactSelectorActivity"
             android:label="@string/title_activity_contact_selector" >
         </activity>
