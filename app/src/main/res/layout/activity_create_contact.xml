@@ -37,21 +37,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvCreateContactMessage"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvCreateGroupMessage"
+        android:id="@+id/tvFindContactMessage"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="5dp" />
+        android:layout_marginBottom="20dp" />
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tableContact">
+        android:id="@+id/tableContact"
+        android:layout_margin="5dp">
 
         <TableRow
             android:layout_width="fill_parent"
@@ -140,5 +135,12 @@
                 android:id="@+id/btnAddToContact" />
         </TableRow>
     </TableLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvSaveContactMessage"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp" />
 
 </LinearLayout>
