@@ -77,7 +77,34 @@
             android:enabled="true" />
     </RadioGroup>
 
-            <Button
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Assign to"
+        android:id="@+id/textViewAssignType"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="30dp" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contacts"
+            android:id="@+id/rdCreateTaskAssignToContact"
+            android:enabled="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Group"
+            android:id="@+id/rdCreateTaskAssignToGroup"
+            android:enabled="true" />
+    </RadioGroup>
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create task"
@@ -88,6 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvCreateTaskMessage"
+        android:text="Fill the form"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="5dp" />
 

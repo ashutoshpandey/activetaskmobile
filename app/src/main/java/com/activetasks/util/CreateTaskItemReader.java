@@ -1,7 +1,6 @@
 package com.activetasks.util;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -21,12 +20,12 @@ import java.util.List;
 /**
  * Created by ashutosh on 10/05/2015.
  */
-public class CreateTaskReader extends AsyncTask<String, Integer, String> {
+public class CreateTaskItemReader extends AsyncTask<String, Integer, String> {
 
     private JsonReaderSupport jsonReaderSource;
     private String url;
 
-    public CreateTaskReader(JsonReaderSupport jsonReaderSource, String url){
+    public CreateTaskItemReader(JsonReaderSupport jsonReaderSource, String url){
         this.jsonReaderSource = jsonReaderSource;
         this.url = url;
     }

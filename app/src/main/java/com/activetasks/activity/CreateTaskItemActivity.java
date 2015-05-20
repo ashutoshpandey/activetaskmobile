@@ -1,11 +1,8 @@
 package com.activetasks.activity;
 
-import com.activetasks.activity.util.SystemUiHider;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +10,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.activetasks.activetasks.R;
-import com.activetasks.util.ContactSelectorReader;
+import com.activetasks.util.CreateTaskItemReader;
 import com.activetasks.util.CreateTaskReader;
 import com.activetasks.util.Data;
 import com.activetasks.util.JsonReaderSupport;
@@ -22,19 +19,19 @@ import com.activetasks.util.JsonReaderSupport;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  *
- * @see SystemUiHider
+ * @see com.activetasks.activity.util.SystemUiHider
  */
-public class CreateTaskActivity extends Activity {
+public class CreateTaskItemActivity extends Activity {
 
     private TextView tvCreateTaskMessage;
 
     private EditText etName;
     private EditText etDescription;
 
-    private Button btnCreateTask;
+    private Button btnCreateTaskItem;
 
-    private RadioButton rdTaskNormal;
-    private RadioButton rdTaskTimed;
+    private RadioButton rdContact;
+    private RadioButton rdGroup;
 
     private String mSelectedIds;
 
@@ -49,31 +46,48 @@ public class CreateTaskActivity extends Activity {
 
         tvCreateTaskMessage = (TextView) findViewById(R.id.tvCreateTaskMessage);
 
-        btnCreateTask = (Button) findViewById(R.id.btnCreateTask);
+        btnCreateTaskItem = (Button) findViewById(R.id.btnCreateTask);
 
-        rdTaskNormal = (RadioButton) findViewById(R.id.rdCreateTaskNormal);
-        rdTaskTimed = (RadioButton) findViewById(R.id.rdCreateTaskTimed);
+        rdContact = (RadioButton) findViewById(R.id.rdCreateTaskAssignToContact);
+        rdGroup = (RadioButton) findViewById(R.id.rdCreateTaskAssignToGroup);
 
-        btnCreateTask.setOnClickListener(new View.OnClickListener() {
+        rdContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(CreateTaskItemActivity.this, ContactSelectorActivity.class);
+                startActivityForResult(i, 1);
+            }
+        });
+
+        rdGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(CreateTaskItemActivity.this, GroupSelectorActivity.class);
+                startActivityForResult(i, 2);
+            }
+        });
+
+        btnCreateTaskItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String name = etName.getText().toString();
                 String description = etDescription.getText().toString();
-                String taskType = null;
-                if(rdTaskNormal.isChecked())
-                    taskType = "normal";
-                else if(rdTaskTimed.isChecked())
-                    taskType = "timed";
-                else{
-                    tvCreateTaskMessage.setText("Please choose task type");
+
+                String assignedTo = null;
+                if (rdContact.isChecked())
+                    assignedTo = "contact";
+                else if (rdGroup.isChecked())
+                    assignedTo = "group";
+                else {
+                    tvCreateTaskMessage.setText("Please assign this task");
                     return;
                 }
 
                 String startDate = etName.getText().toString();
                 String endDate = etName.getText().toString();
 
-                new CreateTask(name, description, taskType, startDate, endDate).execute();
+                new CreateTaskItem(name, description, assignedTo, mSelectedIds, startDate, endDate).execute();
             }
         });
     }
@@ -100,19 +114,21 @@ public class CreateTaskActivity extends Activity {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    class CreateTask implements JsonReaderSupport {
+    class CreateTaskItem implements JsonReaderSupport {
 
         private final String mName;
         private final String mDescription;
-        private final String mTaskType;
+        private final String mAssignedTo;
+        private final String mAssignIds;
         private final String mStartDate;
         private final String mEndDate;
         private String url =  Data.server + "data-save-task";
 
-        public CreateTask(String name, String description, String taskType, String startDate, String endDate) {
+        public CreateTaskItem(String name, String description, String assignedTo, String assignIds, String startDate, String endDate) {
             mName = name;
             mDescription = description;
-            mTaskType = taskType;
+            mAssignedTo = assignedTo;
+            mAssignIds = assignIds;
             mStartDate = startDate;
             mEndDate = endDate;
         }
@@ -127,8 +143,8 @@ public class CreateTaskActivity extends Activity {
             if(valid){
                 tvCreateTaskMessage.setText("Creating");
 
-                CreateTaskReader reader = new CreateTaskReader(this, url);
-                reader.execute(new String[]{mName, mDescription, mTaskType, mStartDate, mEndDate});
+                CreateTaskItemReader reader = new CreateTaskItemReader(this, url);
+                reader.execute(new String[]{mName, mDescription, mAssignedTo, mAssignIds, mStartDate, mEndDate});
             }
             else
                 tvCreateTaskMessage.setText("Form is incomplete");
@@ -142,17 +158,17 @@ public class CreateTaskActivity extends Activity {
                     etName.setText("");
                     etDescription.setText("");
 
-                    rdTaskTimed.setChecked(false);
-                    rdTaskNormal.setChecked(false);
+                    rdContact.setChecked(false);
+                    rdGroup.setChecked(false);
 
                     etName.requestFocus();
 
-                    tvCreateTaskMessage.setText("Task created");
+                    tvCreateTaskMessage.setText("Task item created");
                 }
                 else if(result.toLowerCase().contains("duplicate"))
                     tvCreateTaskMessage.setText("Duplicate name");
                 else if(result.toLowerCase().contains("invalid session")){
-                    Intent i = new Intent(CreateTaskActivity.this, LoginActivity.class);
+                    Intent i = new Intent(CreateTaskItemActivity.this, LoginActivity.class);
                     startActivity(i);
                 }
             }

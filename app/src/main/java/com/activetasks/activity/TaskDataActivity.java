@@ -38,7 +38,7 @@ public class TaskDataActivity extends ActionBarActivity {
 
         taskId = intent.getIntExtra("groupId", 0);
 
-        taskItemsListView = (ListView) findViewById(R.id.listViewMembers);
+        taskItemsListView = (ListView) findViewById(R.id.listViewTaskData);
 
         adapter = new TaskItemAdapter(this, taskItems);
 

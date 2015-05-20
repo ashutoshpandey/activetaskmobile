@@ -19,15 +19,14 @@ import android.widget.TextView;
 
 import com.activetasks.activetasks.R;
 import com.activetasks.activity.LoginActivity;
-import com.activetasks.activity.MemberActivity;
 import com.activetasks.activity.TaskDataActivity;
 import com.activetasks.adapter.TaskAdapter;
 import com.activetasks.helper.DateHelper;
-import com.activetasks.pojo.Group;
 import com.activetasks.pojo.Task;
 import com.activetasks.util.Data;
 import com.activetasks.util.GroupReader;
 import com.activetasks.util.JsonReaderSupport;
+import com.activetasks.util.SimpleDataReader;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,7 +39,7 @@ import java.util.TimerTask;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class TaskFragment extends Fragment {
+public class AssignedTaskFragment extends Fragment {
 
     private List<Task> tasks = new ArrayList<>();
     private TaskAdapter taskAdapter;
@@ -51,16 +50,16 @@ public class TaskFragment extends Fragment {
 
     private Timer taskTimer;
 
-    public TaskFragment() {
+    public AssignedTaskFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_assigned_tasks, container, false);
 
-        taskListView = (ListView)rootView.findViewById(R.id.listViewTask);
-        tvTaskList = (TextView)rootView.findViewById(R.id.tvTaskList);
+        taskListView = (ListView)rootView.findViewById(R.id.listViewAssignedTask);
+        tvTaskList = (TextView)rootView.findViewById(R.id.tvAssignedTaskList);
 
         taskListView.setOnItemClickListener(new ListClickHandler());
 
@@ -71,7 +70,7 @@ public class TaskFragment extends Fragment {
         handler = new Handler() {
 
             public void handleMessage(Message msg) {
-                new TaskReadTask().execute();
+                new AssignedTaskReadTask().execute();
                 Log.d("task thread", "running");
             }
         };
@@ -100,15 +99,15 @@ public class TaskFragment extends Fragment {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    class TaskReadTask implements JsonReaderSupport {
+    class AssignedTaskReadTask implements JsonReaderSupport {
 
-        private String url =  Data.server + "data-all-tasks/" + Data.userId;
+        private String url =  Data.server + "data-all-assigned-tasks/" + Data.userId;
 
-        public TaskReadTask() {
+        public AssignedTaskReadTask() {
         }
 
         public void execute(){
-            GroupReader reader = new GroupReader(this, url);
+            SimpleDataReader reader = new SimpleDataReader(this, url);
             reader.execute();
         }
 
@@ -156,7 +155,7 @@ public class TaskFragment extends Fragment {
 
             }
             catch(Exception ex){
-                Log.d("Group ex", ex.getMessage());
+                Log.d("Assigned ex", ex.getMessage());
             }
         }
     }
