@@ -7,14 +7,14 @@
     android:orientation="vertical"
     tools:context="com.activetasks.activity.TaskDataActivity">
 
-    <TextView android:text="" android:layout_width="wrap_content" android:id="@+id/tvActivityTaskData"
+    <TextView android:text="" android:layout_width="wrap_content" android:id="@+id/tvActivityTaskDataUpdate"
         android:layout_height="wrap_content" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:id="@+id/listViewTaskData"
+        android:id="@+id/listViewTaskDataUpdate"
         android:layout_weight="1" />
 
 </LinearLayout>

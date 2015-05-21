@@ -72,7 +72,6 @@ public class TaskFragment extends Fragment {
 
             public void handleMessage(Message msg) {
                 new TaskReadTask().execute();
-                Log.d("task thread", "running");
             }
         };
 

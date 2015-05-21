@@ -38,7 +38,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     private Menu menu;
 
-    private String[] tabNames = {"Dashboard", "Tasks", "Assigned", "Groups", "Contacts"};
+    private String[] tabNames = {"Status", "Tasks", "Assigned", "Groups", "Contacts"};
 
     private ListView listViewGroup;
     private ListView listViewTask;

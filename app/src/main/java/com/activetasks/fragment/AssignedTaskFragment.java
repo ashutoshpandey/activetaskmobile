@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.activetasks.activetasks.R;
 import com.activetasks.activity.LoginActivity;
 import com.activetasks.activity.TaskDataActivity;
+import com.activetasks.activity.TaskDataUpdateActivity;
 import com.activetasks.adapter.TaskAdapter;
 import com.activetasks.helper.DateHelper;
 import com.activetasks.pojo.Task;
@@ -71,7 +72,6 @@ public class AssignedTaskFragment extends Fragment {
 
             public void handleMessage(Message msg) {
                 new AssignedTaskReadTask().execute();
-                Log.d("task thread", "running");
             }
         };
 
@@ -168,7 +168,7 @@ public class AssignedTaskFragment extends Fragment {
 
             int taskId = task.getId();
 
-            Intent i = new Intent(getActivity(), TaskDataActivity.class);
+            Intent i = new Intent(getActivity(), TaskDataUpdateActivity.class);
             i.putExtra("taskId", taskId);
             startActivity(i);
         }

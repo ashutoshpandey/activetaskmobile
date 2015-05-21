@@ -1,21 +1,17 @@
 package com.activetasks.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.activetasks.activetasks.R;
-import com.activetasks.adapter.MemberAdapter;
 import com.activetasks.adapter.TaskItemAdapter;
 import com.activetasks.helper.DateHelper;
-import com.activetasks.pojo.GroupMember;
 import com.activetasks.pojo.TaskItem;
 import com.activetasks.util.Data;
 import com.activetasks.util.GroupMemberReader;
@@ -29,14 +25,17 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TaskDataActivity extends ActionBarActivity {
+/**
+ * This activity will be used to update the status of the task
+ */
+public class TaskDataUpdateActivity extends ActionBarActivity {
 
     private ListView taskItemsListView;
     private TextView tvActivityTaskData;
 
     private TaskItemAdapter adapter;
     private List<TaskItem> taskItems = new ArrayList<>();
-    private Integer mTaskId;
+    private Integer taskId;
 
     private Handler handler;
 
@@ -45,14 +44,14 @@ public class TaskDataActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_data);
+        setContentView(R.layout.activity_task_data_update);
 
         Intent intent = getIntent();
 
-        mTaskId = intent.getIntExtra("taskId", 0);
+        taskId = intent.getIntExtra("taskId", 0);
 
-        taskItemsListView = (ListView) findViewById(R.id.listViewTaskData);
-        tvActivityTaskData = (TextView) findViewById(R.id.tvActivityTaskData);
+        taskItemsListView = (ListView) findViewById(R.id.listViewTaskDataUpdate);
+        tvActivityTaskData = (TextView) findViewById(R.id.tvActivityTaskDataUpdate);
 
         tvActivityTaskData.setText("Loading...");
 
@@ -67,32 +66,6 @@ public class TaskDataActivity extends ActionBarActivity {
             }
         };
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_task_data, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_assign_task) {
-            Intent i = new Intent(TaskDataActivity.this, CreateTaskItemActivity.class);
-            i.putExtra("taskId", mTaskId);
-            startActivity(i);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -115,7 +88,7 @@ public class TaskDataActivity extends ActionBarActivity {
 
     class TaskItemReadTask implements JsonReaderSupport {
 
-        private String url =  Data.server + "data-all-task-items/" + mTaskId;
+        private String url =  Data.server + "data-all-task-items/" + taskId;
 
         public TaskItemReadTask() {
         }
@@ -146,7 +119,7 @@ public class TaskDataActivity extends ActionBarActivity {
                         TaskItem taskItem = new TaskItem();
 
                         taskItem.setId(json_data.getInt("id"));
-                        taskItem.setContent(json_data.getString("description"));
+                        taskItem.setContent(json_data.getString("content"));
                         taskItem.setStartDate(DateHelper.formatStringDate(json_data.getString("start_date")));
                         taskItem.setEndDate(DateHelper.formatStringDate(json_data.getString("end_date")));
 
@@ -163,12 +136,12 @@ public class TaskDataActivity extends ActionBarActivity {
                     adapter.notifyDataSetChanged();
                 }
                 else if(message.toLowerCase().contains("invalid session")){
-                    Intent i = new Intent(TaskDataActivity.this, LoginActivity.class);
+                    Intent i = new Intent(TaskDataUpdateActivity.this, LoginActivity.class);
                     startActivity(i);
                 }
             }
             catch(Exception ex){
-                Log.d("Task data ex", ex.getMessage());
+                Log.d("Group ex", ex.getMessage());
             }
         }
     }

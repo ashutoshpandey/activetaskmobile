@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Create a new task"
+        android:text="Create task item"
         android:id="@+id/tvCreateTask" />
 
     <TextView
@@ -49,35 +49,7 @@
         android:ems="10"
         android:id="@+id/etCreateTaskDescription" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Task type"
-        android:id="@+id/textViewTaskType"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="30dp" />
-
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Normal"
-            android:id="@+id/rdCreateTaskNormal"
-            android:enabled="true"
-            android:checked="true" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Timed"
-            android:id="@+id/rdCreateTaskTimed"
-            android:enabled="true" />
-    </RadioGroup>
-
-    <TextView
+            <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Assign to"
@@ -107,7 +79,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create task"
+        android:text="Create task item"
         android:id="@+id/btnCreateTask"
         android:layout_marginTop="20dp" />
 
@@ -115,7 +87,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvCreateTaskMessage"
-        android:text="Fill the form"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="5dp" />
 

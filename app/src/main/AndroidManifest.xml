@@ -57,7 +57,12 @@
         </activity>
         <activity
             android:name="com.activetasks.activity.CreateTaskActivity"
-            android:label="Create a new task"
+            android:label="@string/title_activity_create_task"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.activetasks.activity.CreateTaskItemActivity"
+            android:label="@string/title_activity_create_task_item"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity

@@ -1,6 +1,7 @@
 package com.activetasks.util;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -37,19 +38,23 @@ public class CreateTaskItemReader extends AsyncTask<String, Integer, String> {
 
         String mName = params[0];
         String mDescription = params[1];
-        String mtaskType = params[2];
-        String mStartDate = params[3];
-        String mEndDate = params[4];
-
+        String mAssignedTo = params[2];
+        String mAssignedIds = params[3];
+        String mStartDate = params[4];
+        String mEndDate = params[5];
+        String mTaskId = params[6];
+        Log.d("task item sending ", mName + " , " + mDescription + " , " + mAssignedTo + " , " + mAssignedIds + " , " + mStartDate + " , " + mEndDate + " , " + mTaskId);
         String result = null;
 
         List<NameValuePair> data = new ArrayList<NameValuePair>();
         data.add(new BasicNameValuePair("name", mName));
         data.add(new BasicNameValuePair("description", mDescription));
-        data.add(new BasicNameValuePair("task_type", mtaskType));
         data.add(new BasicNameValuePair("start_date", mStartDate));
         data.add(new BasicNameValuePair("end_date", mEndDate));
         data.add(new BasicNameValuePair("user_id", Data.userId.toString()));
+        data.add(new BasicNameValuePair("task_id", mTaskId.toString()));
+        data.add(new BasicNameValuePair("assigned_to", mAssignedTo));
+        data.add(new BasicNameValuePair("assigned_ids", mAssignedIds));
 
         try {
             HttpClient httpClient = new DefaultHttpClient();

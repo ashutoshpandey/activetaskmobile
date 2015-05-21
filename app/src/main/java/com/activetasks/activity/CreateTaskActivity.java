@@ -36,8 +36,6 @@ public class CreateTaskActivity extends Activity {
     private RadioButton rdTaskNormal;
     private RadioButton rdTaskTimed;
 
-    private String mSelectedIds;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,24 +74,6 @@ public class CreateTaskActivity extends Activity {
                 new CreateTask(name, description, taskType, startDate, endDate).execute();
             }
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        // check if the request code is same as what is passed here
-
-        if(data!=null){
-
-            if(requestCode==1)
-            {
-                mSelectedIds = data.getStringExtra("ids");
-            }
-            else if(requestCode==2){
-                mSelectedIds = data.getStringExtra("id");
-            }
-        }
     }
 
     /**

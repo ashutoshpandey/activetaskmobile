@@ -3,6 +3,7 @@ package com.activetasks.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,13 +34,17 @@ public class CreateTaskItemActivity extends Activity {
     private RadioButton rdContact;
     private RadioButton rdGroup;
 
+    private Integer mTaskId;
     private String mSelectedIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_create_task);
+        setContentView(R.layout.activity_create_task_entry);
+
+        Intent intent = getIntent();
+        mTaskId = intent.getIntExtra("taskId", 0);
 
         etName = (EditText)findViewById(R.id.etCreateTaskName);
         etDescription = (EditText)findViewById(R.id.etCreateTaskDescription);
@@ -122,7 +127,7 @@ public class CreateTaskItemActivity extends Activity {
         private final String mAssignIds;
         private final String mStartDate;
         private final String mEndDate;
-        private String url =  Data.server + "data-save-task";
+        private String url =  Data.server + "data-save-task-item";
 
         public CreateTaskItem(String name, String description, String assignedTo, String assignIds, String startDate, String endDate) {
             mName = name;
@@ -142,9 +147,9 @@ public class CreateTaskItemActivity extends Activity {
 
             if(valid){
                 tvCreateTaskMessage.setText("Creating");
-
+Log.d("task item ", mName + " , " + mDescription + " , " + mAssignedTo + " , " + mAssignIds + " , " + mStartDate + " , " + mEndDate + " , " + mTaskId);
                 CreateTaskItemReader reader = new CreateTaskItemReader(this, url);
-                reader.execute(new String[]{mName, mDescription, mAssignedTo, mAssignIds, mStartDate, mEndDate});
+                reader.execute(new String[]{mName, mDescription, mAssignedTo, mAssignIds, mStartDate, mEndDate, mTaskId.toString()});
             }
             else
                 tvCreateTaskMessage.setText("Form is incomplete");
