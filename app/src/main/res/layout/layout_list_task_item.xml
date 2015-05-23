@@ -9,16 +9,20 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text=""
-        android:id="@+id/tvTaskItemContent"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp" />
+        android:id="@+id/tvTaskItemContent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text=""
-        android:paddingBottom="10dp"
+        android:id="@+id/tvTaskItemPerson" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=""
         android:id="@+id/tvTaskItemDate" />
 
 </LinearLayout>

@@ -147,7 +147,7 @@ public class CreateTaskItemActivity extends Activity {
 
             if(valid){
                 tvCreateTaskMessage.setText("Creating");
-Log.d("task item ", mName + " , " + mDescription + " , " + mAssignedTo + " , " + mAssignIds + " , " + mStartDate + " , " + mEndDate + " , " + mTaskId);
+
                 CreateTaskItemReader reader = new CreateTaskItemReader(this, url);
                 reader.execute(new String[]{mName, mDescription, mAssignedTo, mAssignIds, mStartDate, mEndDate, mTaskId.toString()});
             }

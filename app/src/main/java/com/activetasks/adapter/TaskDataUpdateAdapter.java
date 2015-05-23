@@ -11,17 +11,18 @@ import android.widget.TextView;
 
 import com.activetasks.activetasks.R;
 import com.activetasks.pojo.TaskItem;
+import com.activetasks.pojo.TaskUpdateItem;
 
 import java.util.List;
 
-public class TaskItemAdapter extends ArrayAdapter<TaskItem> {
+public class TaskDataUpdateAdapter extends ArrayAdapter<TaskUpdateItem> {
 
 	private Activity activity;
-	private List<TaskItem> items;
-	private TaskItem taskItem;
+	private List<TaskUpdateItem> items;
+	private TaskUpdateItem taskItem;
 	private int row;
 
-	public TaskItemAdapter(Activity act, List<TaskItem> arrayList) {
+	public TaskDataUpdateAdapter(Activity act, List<TaskUpdateItem> arrayList) {
         super(act, R.layout.layout_task_data_item, arrayList);
 		this.activity = act;
 		this.items = arrayList;
@@ -35,7 +36,7 @@ public class TaskItemAdapter extends ArrayAdapter<TaskItem> {
 		if (view == null) {
 			LayoutInflater inflater = (LayoutInflater) activity
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			view = inflater.inflate(R.layout.layout_list_task_item, null);
+			view = inflater.inflate(R.layout.layout_task_data_item, null);
 
 			holder = new ViewHolder();
 			view.setTag(holder);
@@ -49,18 +50,12 @@ public class TaskItemAdapter extends ArrayAdapter<TaskItem> {
         taskItem = items.get(position);
 
 		holder.description = (TextView) view.findViewById(R.id.tvTaskItemContent);
-        holder.person = (TextView) view.findViewById(R.id.tvTaskItemPerson);
         holder.date = (TextView) view.findViewById(R.id.tvTaskItemDate);
 
 		if (holder.description != null && null != taskItem.getDescription()
 				&& taskItem.getDescription().trim().length() > 0) {
 			holder.description.setText(Html.fromHtml(taskItem.getDescription()));
 		}
-
-        if (holder.person != null && null != taskItem.getAssignedTo()
-                && taskItem.getAssignedTo().trim().length() > 0) {
-            holder.description.setText(Html.fromHtml(taskItem.getAssignedTo()));
-        }
 
         if (
                 holder.date != null &&
@@ -76,7 +71,6 @@ public class TaskItemAdapter extends ArrayAdapter<TaskItem> {
 
 	public class ViewHolder {
         public TextView description;
-        public TextView person;
         public TextView date;
 	}
 

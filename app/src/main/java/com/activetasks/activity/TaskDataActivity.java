@@ -146,7 +146,7 @@ public class TaskDataActivity extends ActionBarActivity {
                         TaskItem taskItem = new TaskItem();
 
                         taskItem.setId(json_data.getInt("id"));
-                        taskItem.setContent(json_data.getString("description"));
+                        taskItem.setDescription(json_data.getString("description"));
                         taskItem.setStartDate(DateHelper.formatStringDate(json_data.getString("start_date")));
                         taskItem.setEndDate(DateHelper.formatStringDate(json_data.getString("end_date")));
 

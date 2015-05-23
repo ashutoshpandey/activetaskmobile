@@ -9,7 +9,7 @@
     <TextView android:id="@+id/tvAssignedTaskList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Listing your tasks" />
+        android:text="Loading..." />
 
     <ListView
         android:layout_width="wrap_content"

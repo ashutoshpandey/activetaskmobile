@@ -1,21 +1,31 @@
 package com.activetasks.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.activetasks.activetasks.R;
+import com.activetasks.adapter.TaskDataUpdateAdapter;
 import com.activetasks.adapter.TaskItemAdapter;
 import com.activetasks.helper.DateHelper;
+import com.activetasks.pojo.Task;
 import com.activetasks.pojo.TaskItem;
+import com.activetasks.pojo.TaskUpdateItem;
 import com.activetasks.util.Data;
 import com.activetasks.util.GroupMemberReader;
 import com.activetasks.util.JsonReaderSupport;
+import com.activetasks.util.TaskAssignedReader;
+import com.activetasks.util.TaskCommentReader;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,9 +43,10 @@ public class TaskDataUpdateActivity extends ActionBarActivity {
     private ListView taskItemsListView;
     private TextView tvActivityTaskData;
 
-    private TaskItemAdapter adapter;
-    private List<TaskItem> taskItems = new ArrayList<>();
+    private TaskDataUpdateAdapter adapter;
+    private List<TaskUpdateItem> taskItems = new ArrayList<>();
     private Integer taskId;
+    private Integer taskItemId;
 
     private Handler handler;
 
@@ -53,16 +64,18 @@ public class TaskDataUpdateActivity extends ActionBarActivity {
         taskItemsListView = (ListView) findViewById(R.id.listViewTaskDataUpdate);
         tvActivityTaskData = (TextView) findViewById(R.id.tvActivityTaskDataUpdate);
 
+        taskItemsListView.setOnItemClickListener(new ListClickHandler());
+
         tvActivityTaskData.setText("Loading...");
 
-        adapter = new TaskItemAdapter(this, taskItems);
+        adapter = new TaskDataUpdateAdapter(this, taskItems);
 
         taskItemsListView.setAdapter(adapter);
 
         handler = new Handler() {
 
             public void handleMessage(Message msg) {
-                new TaskItemReadTask().execute();
+                new AssignedTaskItemReadTask().execute();
             }
         };
 
@@ -86,17 +99,17 @@ public class TaskDataUpdateActivity extends ActionBarActivity {
     }
 
 
-    class TaskItemReadTask implements JsonReaderSupport {
+    class AssignedTaskItemReadTask implements JsonReaderSupport {
 
-        private String url =  Data.server + "data-all-task-items/" + taskId;
+        private String url =  Data.server + "data-all-assigned-task-items";
 
-        public TaskItemReadTask() {
+        public AssignedTaskItemReadTask() {
         }
 
         public void execute(){
 
-            GroupMemberReader reader = new GroupMemberReader(this, url);
-            reader.execute();
+            TaskAssignedReader reader = new TaskAssignedReader(this, url);
+            reader.execute(taskId.toString());
         }
 
         @Override
@@ -116,17 +129,17 @@ public class TaskDataUpdateActivity extends ActionBarActivity {
                     for(int i=0; i<jArray.length(); i++){
                         JSONObject json_data = jArray.getJSONObject(i);
 
-                        TaskItem taskItem = new TaskItem();
+                        TaskUpdateItem taskUpdateItem = new TaskUpdateItem();
 
-                        taskItem.setId(json_data.getInt("id"));
-                        taskItem.setContent(json_data.getString("content"));
-                        taskItem.setStartDate(DateHelper.formatStringDate(json_data.getString("start_date")));
-                        taskItem.setEndDate(DateHelper.formatStringDate(json_data.getString("end_date")));
+                        taskUpdateItem.setId(json_data.getInt("id"));
+                        taskUpdateItem.setDescription(json_data.getString("description"));
+                        taskUpdateItem.setStartDate(DateHelper.formatStringDate(json_data.getString("start_date")));
+                        taskUpdateItem.setEndDate(DateHelper.formatStringDate(json_data.getString("end_date")));
 
-                        taskItems.add(taskItem);
+                        taskItems.add(taskUpdateItem);
                     }
 
-                    tvActivityTaskData.setText("Listing task items");
+                    tvActivityTaskData.setText("Listing your assigned items");
 
                     adapter.notifyDataSetChanged();
                 }
@@ -141,9 +154,82 @@ public class TaskDataUpdateActivity extends ActionBarActivity {
                 }
             }
             catch(Exception ex){
-                Log.d("Group ex", ex.getMessage());
+                Log.d("Task data update ex", ex.getMessage());
             }
         }
     }
 
+    public class ListClickHandler implements AdapterView.OnItemClickListener{
+
+        @Override
+        public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
+            TaskUpdateItem taskItem = taskItems.get(position);
+
+            taskItemId = taskItem.getId();
+
+            Intent i = new Intent(TaskDataUpdateActivity.this, TaskItemMessageActivity.class);
+            startActivityForResult(i, 1);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed here
+
+        if(data!=null){
+
+            if(requestCode==1)
+            {
+                String message = data.getStringExtra("message");
+                String type = data.getStringExtra("type");
+
+                new UpdateTaskMessageTask(message, type, taskItemId.toString()).execute();
+            }
+            else if(requestCode==0){
+            }
+        }
+    }
+
+    class UpdateTaskMessageTask implements JsonReaderSupport {
+
+        private String url =  Data.server + "data-task-update-message";
+
+        private String message;
+        private String type;
+        private String taskItemId;
+
+        public UpdateTaskMessageTask(String message, String type, String taskItemId) {
+            this.message = message;
+            this.type = type;
+            this.taskItemId = taskItemId;
+        }
+
+        public void execute(){
+            TaskCommentReader reader = new TaskCommentReader(this, url);
+            reader.execute(new String[]{message, type, taskItemId});
+        }
+
+        @Override
+        public void onJsonReadComplete(String result) {
+
+            try {
+
+                if(result.toLowerCase().contains("saved")){
+
+                }
+                else if(result.toLowerCase().contains("empty")){
+
+                }
+                else if(result.toLowerCase().contains("invalid session")){
+                    Intent i = new Intent(TaskDataUpdateActivity.this, LoginActivity.class);
+                    startActivity(i);
+                }
+            }
+            catch(Exception ex){
+                Log.d("Task message update ex", ex.getMessage());
+            }
+        }
+    }
 }

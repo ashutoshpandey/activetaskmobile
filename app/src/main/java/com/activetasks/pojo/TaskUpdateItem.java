@@ -3,10 +3,9 @@ package com.activetasks.pojo;
 /**
  * Created by ashutosh on 13/05/2015.
  */
-public class TaskItem {
+public class TaskUpdateItem {
 
     private String description;
-    private String assignedTo;
     private String startDate;
     private String endDate;
     private Integer id;
@@ -17,14 +16,6 @@ public class TaskItem {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getAssignedTo() {
-        return assignedTo;
-    }
-
-    public void setAssignedTo(String assignedTo) {
-        this.assignedTo = assignedTo;
     }
 
     public String getStartDate() {

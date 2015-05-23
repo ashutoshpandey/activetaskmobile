@@ -50,7 +50,7 @@ public class ContactFragment extends Fragment {
 
         contactView = (ListView)rootView.findViewById(R.id.listViewContacts);
         tvContactLabel = (TextView)rootView.findViewById(R.id.tvContactLabel);
-Log.d("Null check " , (tvContactLabel==null) + " , " + (contactView==null));
+
         contactView.setOnItemClickListener(new ListClickHandler());
 
         contactAdapter = new ContactAdapter(getActivity(), contacts);
