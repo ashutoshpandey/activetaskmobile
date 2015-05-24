@@ -11,6 +11,9 @@ public class Task {
     private String statusImage;
     private String taskType;
 
+    private String total;
+    private String completed;
+
     private Integer id;
     private Integer groupId;
     private Integer userId;             // created by
@@ -85,5 +88,21 @@ public class Task {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
+    public String getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(String completed) {
+        this.completed = completed;
     }
 }

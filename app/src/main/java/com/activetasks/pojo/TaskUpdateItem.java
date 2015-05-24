@@ -9,6 +9,7 @@ public class TaskUpdateItem {
     private String startDate;
     private String endDate;
     private Integer id;
+    private Integer contactId;
 
     public String getDescription() {
         return description;
@@ -40,5 +41,13 @@ public class TaskUpdateItem {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(Integer contactId) {
+        this.contactId = contactId;
     }
 }

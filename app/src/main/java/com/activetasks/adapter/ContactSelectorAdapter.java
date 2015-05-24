@@ -60,12 +60,12 @@ public class ContactSelectorAdapter extends ArrayAdapter<Contact> {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                Integer memberId = ((Contact) ((CheckBox) buttonView).getTag()).getId();
+                Integer contactId = ((Contact) ((CheckBox) buttonView).getTag()).getId();
 
                 if (isChecked)
-                    selectedContacts.add(memberId);
+                    selectedContacts.add(contactId);
                 else
-                    selectedContacts.remove(memberId);
+                    selectedContacts.remove(contactId);
             }
         });
 

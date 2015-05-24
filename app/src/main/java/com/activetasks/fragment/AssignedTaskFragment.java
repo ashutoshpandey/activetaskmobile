@@ -19,13 +19,11 @@ import android.widget.TextView;
 
 import com.activetasks.activetasks.R;
 import com.activetasks.activity.LoginActivity;
-import com.activetasks.activity.TaskDataActivity;
 import com.activetasks.activity.TaskDataUpdateActivity;
-import com.activetasks.adapter.TaskAdapter;
+import com.activetasks.adapter.TaskAssignedAdapter;
 import com.activetasks.helper.DateHelper;
 import com.activetasks.pojo.Task;
 import com.activetasks.util.Data;
-import com.activetasks.util.GroupReader;
 import com.activetasks.util.JsonReaderSupport;
 import com.activetasks.util.SimpleDataReader;
 
@@ -43,7 +41,7 @@ import java.util.TimerTask;
 public class AssignedTaskFragment extends Fragment {
 
     private List<Task> tasks = new ArrayList<>();
-    private TaskAdapter taskAdapter;
+    private TaskAssignedAdapter taskAdapter;
     private ListView taskListView;
     private TextView tvTaskList;
 
@@ -64,7 +62,7 @@ public class AssignedTaskFragment extends Fragment {
 
         taskListView.setOnItemClickListener(new ListClickHandler());
 
-        taskAdapter = new TaskAdapter(getActivity(), tasks);
+        taskAdapter = new TaskAssignedAdapter(getActivity(), tasks);
 
         taskListView.setAdapter(taskAdapter);
 
@@ -121,6 +119,8 @@ public class AssignedTaskFragment extends Fragment {
 
                 if(message.toLowerCase().contains("found")){
 
+                    String pending = json.getString("pending");
+
                     tasks.clear();
 
                     JSONArray jArray = json.getJSONArray("tasks");
@@ -139,7 +139,7 @@ public class AssignedTaskFragment extends Fragment {
                         tasks.add(task);
                     }
 
-                    tvTaskList.setText(tasks.size() + " tasks pending");
+                    tvTaskList.setText(pending + " tasks pending");
 
                     taskAdapter.notifyDataSetChanged();
                 }

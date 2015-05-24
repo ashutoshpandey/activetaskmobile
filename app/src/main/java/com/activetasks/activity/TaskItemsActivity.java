@@ -12,10 +12,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.activetasks.activetasks.R;
-import com.activetasks.adapter.MemberAdapter;
 import com.activetasks.adapter.TaskItemAdapter;
 import com.activetasks.helper.DateHelper;
-import com.activetasks.pojo.GroupMember;
 import com.activetasks.pojo.TaskItem;
 import com.activetasks.util.Data;
 import com.activetasks.util.GroupMemberReader;
@@ -29,7 +27,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TaskDataActivity extends ActionBarActivity {
+public class TaskItemsActivity extends ActionBarActivity {
 
     private ListView taskItemsListView;
     private TextView tvActivityTaskData;
@@ -86,7 +84,7 @@ public class TaskDataActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_assign_task) {
-            Intent i = new Intent(TaskDataActivity.this, CreateTaskItemActivity.class);
+            Intent i = new Intent(TaskItemsActivity.this, CreateTaskItemActivity.class);
             i.putExtra("taskId", mTaskId);
             startActivity(i);
             return true;
@@ -146,6 +144,8 @@ public class TaskDataActivity extends ActionBarActivity {
                         TaskItem taskItem = new TaskItem();
 
                         taskItem.setId(json_data.getInt("id"));
+                        taskItem.setAssignedTo(json_data.getString("assigned_to"));
+                        taskItem.setAssignedName(json_data.getString("assigned_name"));
                         taskItem.setDescription(json_data.getString("description"));
                         taskItem.setStartDate(DateHelper.formatStringDate(json_data.getString("start_date")));
                         taskItem.setEndDate(DateHelper.formatStringDate(json_data.getString("end_date")));
@@ -163,7 +163,7 @@ public class TaskDataActivity extends ActionBarActivity {
                     adapter.notifyDataSetChanged();
                 }
                 else if(message.toLowerCase().contains("invalid session")){
-                    Intent i = new Intent(TaskDataActivity.this, LoginActivity.class);
+                    Intent i = new Intent(TaskItemsActivity.this, LoginActivity.class);
                     startActivity(i);
                 }
             }

@@ -66,10 +66,6 @@ public class ContactFragment extends Fragment {
         new ContactReadTask().execute();
     }
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
     class ContactReadTask implements JsonReaderSupport {
 
         private String url =  Data.server + "data-all-contacts/" + Data.userId;
@@ -125,7 +121,6 @@ public class ContactFragment extends Fragment {
             }
             catch(Exception ex){
                 Log.d("Contact ex", ex.getMessage());
-                ex.printStackTrace();
             }
         }
     }
@@ -134,13 +129,10 @@ public class ContactFragment extends Fragment {
 
         @Override
         public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
-            Contact task = contacts.get(position);
+            Contact contact = contacts.get(position);
 
-            int peopleId = task.getId();
+            int contactId = contact.getId();
 
-//            Intent i = new Intent(getActivity(), TaskDataActivity.class);
-//            i.putExtra("taskId", taskId);
-//            startActivity(i);
         }
     }
 }

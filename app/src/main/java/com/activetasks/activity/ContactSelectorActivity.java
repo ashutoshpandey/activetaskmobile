@@ -51,10 +51,10 @@ public class ContactSelectorActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                Set<Integer> groupMemberList = contactAdapter.getSelectedContacts();
+                Set<Integer> selectedContacts = contactAdapter.getSelectedContacts();
 
-                if(groupMemberList!=null && groupMemberList.size()>0) {
-                    Object[] strArray = groupMemberList.toArray();
+                if(selectedContacts!=null && selectedContacts.size()>0) {
+                    Object[] strArray = selectedContacts.toArray();
 
                     StringBuilder strBuilder = new StringBuilder();
 
@@ -66,7 +66,7 @@ public class ContactSelectorActivity extends ActionBarActivity {
                         strBuilder.deleteCharAt(strBuilder.length() - 1);
 
                     String ids = strBuilder.toString();
-
+Log.d("selected contacts = ", ids);
                     Intent intent = new Intent();
                     intent.putExtra("ids", ids);
                     setResult(1, intent);

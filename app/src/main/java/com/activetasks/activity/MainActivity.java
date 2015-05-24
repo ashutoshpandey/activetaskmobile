@@ -43,12 +43,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     private ListView listViewGroup;
     private ListView listViewTask;
 
-    private TaskAdapter taskAdapter;
-
-/************************************* Array lists for list views *******************************/
-    private List<Task> tasks = new ArrayList<>();
-/************************************* Array lists for list views *******************************/
-
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -124,7 +118,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         int index = viewPager.getCurrentItem();
 
-        if(index==3) {
+        if(index==4) {
             ContactFragment contactFragment = (ContactFragment) mAdapter.getItem(index);
             contactFragment.loadContacts();
         }

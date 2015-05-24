@@ -8,6 +8,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -21,12 +22,12 @@ import java.util.List;
 /**
  * Created by ashutosh on 10/05/2015.
  */
-public class TaskCommentReader extends AsyncTask<String, Integer, String> {
+public class RegisterReader extends AsyncTask<String, Integer, String> {
 
     private JsonReaderSupport jsonReaderSource;
     private String url;
 
-    public TaskCommentReader(JsonReaderSupport jsonReaderSource, String url){
+    public RegisterReader(JsonReaderSupport jsonReaderSource, String url){
         this.jsonReaderSource = jsonReaderSource;
         this.url = url;
     }
@@ -37,25 +38,29 @@ public class TaskCommentReader extends AsyncTask<String, Integer, String> {
 
         StringBuilder builder = new StringBuilder();
 
-        String message = params[0];
-        String type = params[1];
-        String taskItemId = params[2];
-        String contactId = params[3];
+        String email = params[0];
+        String firstName = params[1];
+        String lastName = params[2];
+        String password = params[3];
+        String gender = params[4];
 
         String result = null;
-
-        List<NameValuePair> data = new ArrayList<NameValuePair>();
-        data.add(new BasicNameValuePair("message", message));
-        data.add(new BasicNameValuePair("type", type));
-        data.add(new BasicNameValuePair("task_item_id", taskItemId));
-        data.add(new BasicNameValuePair("contact_id", contactId));
-        data.add(new BasicNameValuePair("user_id", Data.userId.toString()));
-
+        Log.d("url registration = ", url);
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost post = new HttpPost(url);
-            post.setEntity(new UrlEncodedFormEntity(data));
+
+            List<NameValuePair> data = new ArrayList<NameValuePair>();
+            data.add(new BasicNameValuePair("email", email));
+            data.add(new BasicNameValuePair("firstName", firstName));
+            data.add(new BasicNameValuePair("lastName", lastName));
+            data.add(new BasicNameValuePair("password", password));
+            data.add(new BasicNameValuePair("gender", gender));
+            data.add(new BasicNameValuePair("country", ""));
+            data.add(new BasicNameValuePair("display_name", ""));
+
             try{
+                post.setEntity(new UrlEncodedFormEntity(data));
 
                 HttpResponse response = httpClient.execute(post);
                 HttpEntity entity = response.getEntity();
@@ -67,7 +72,6 @@ public class TaskCommentReader extends AsyncTask<String, Integer, String> {
                 }
 
                 result = builder.toString();
-                System.out.println("Result = " + result);
             }
             catch (Exception e) {
                 e.printStackTrace();

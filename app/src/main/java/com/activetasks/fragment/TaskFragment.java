@@ -19,11 +19,9 @@ import android.widget.TextView;
 
 import com.activetasks.activetasks.R;
 import com.activetasks.activity.LoginActivity;
-import com.activetasks.activity.MemberActivity;
-import com.activetasks.activity.TaskDataActivity;
+import com.activetasks.activity.TaskItemsActivity;
 import com.activetasks.adapter.TaskAdapter;
 import com.activetasks.helper.DateHelper;
-import com.activetasks.pojo.Group;
 import com.activetasks.pojo.Task;
 import com.activetasks.util.Data;
 import com.activetasks.util.GroupReader;
@@ -121,6 +119,8 @@ public class TaskFragment extends Fragment {
 
                 if(message.toLowerCase().contains("found")){
 
+                    String pending = json.getString("pending");
+
                     tasks.clear();
 
                     JSONArray jArray = json.getJSONArray("tasks");
@@ -135,11 +135,13 @@ public class TaskFragment extends Fragment {
                         task.setStartDate(DateHelper.formatStringDate(json_data.getString("start_date")));
                         task.setEndDate(DateHelper.formatStringDate(json_data.getString("end_date")));
                         task.setDescription(json_data.getString("description"));
+                        task.setTotal(json_data.getString("total"));
+                        task.setCompleted(json_data.getString("completed"));
 
                         tasks.add(task);
                     }
 
-                    tvTaskList.setText(tasks.size() + " tasks pending");
+                    tvTaskList.setText(pending + " tasks pending");
 
                     taskAdapter.notifyDataSetChanged();
                 }
@@ -168,7 +170,7 @@ public class TaskFragment extends Fragment {
 
             int taskId = task.getId();
 
-            Intent i = new Intent(getActivity(), TaskDataActivity.class);
+            Intent i = new Intent(getActivity(), TaskItemsActivity.class);
             i.putExtra("taskId", taskId);
             startActivity(i);
         }

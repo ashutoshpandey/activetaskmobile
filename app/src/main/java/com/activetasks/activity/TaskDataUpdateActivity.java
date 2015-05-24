@@ -47,6 +47,7 @@ public class TaskDataUpdateActivity extends ActionBarActivity {
     private List<TaskUpdateItem> taskItems = new ArrayList<>();
     private Integer taskId;
     private Integer taskItemId;
+    private Integer contactId;
 
     private Handler handler;
 
@@ -78,7 +79,6 @@ public class TaskDataUpdateActivity extends ActionBarActivity {
                 new AssignedTaskItemReadTask().execute();
             }
         };
-
     }
 
     @Override
@@ -135,6 +135,7 @@ public class TaskDataUpdateActivity extends ActionBarActivity {
                         taskUpdateItem.setDescription(json_data.getString("description"));
                         taskUpdateItem.setStartDate(DateHelper.formatStringDate(json_data.getString("start_date")));
                         taskUpdateItem.setEndDate(DateHelper.formatStringDate(json_data.getString("end_date")));
+                        taskUpdateItem.setContactId(json_data.getInt("contact_id"));
 
                         taskItems.add(taskUpdateItem);
                     }
@@ -166,6 +167,7 @@ public class TaskDataUpdateActivity extends ActionBarActivity {
             TaskUpdateItem taskItem = taskItems.get(position);
 
             taskItemId = taskItem.getId();
+            contactId = taskItem.getContactId();
 
             Intent i = new Intent(TaskDataUpdateActivity.this, TaskItemMessageActivity.class);
             startActivityForResult(i, 1);
@@ -185,7 +187,7 @@ public class TaskDataUpdateActivity extends ActionBarActivity {
                 String message = data.getStringExtra("message");
                 String type = data.getStringExtra("type");
 
-                new UpdateTaskMessageTask(message, type, taskItemId.toString()).execute();
+                new UpdateTaskMessageTask(message, type, taskItemId.toString(), contactId.toString()).execute();
             }
             else if(requestCode==0){
             }
@@ -199,16 +201,18 @@ public class TaskDataUpdateActivity extends ActionBarActivity {
         private String message;
         private String type;
         private String taskItemId;
+        private String contactId;
 
-        public UpdateTaskMessageTask(String message, String type, String taskItemId) {
+        public UpdateTaskMessageTask(String message, String type, String taskItemId, String contactId) {
             this.message = message;
             this.type = type;
             this.taskItemId = taskItemId;
+            this.contactId = contactId;
         }
 
         public void execute(){
             TaskCommentReader reader = new TaskCommentReader(this, url);
-            reader.execute(new String[]{message, type, taskItemId});
+            reader.execute(new String[]{message, type, taskItemId, contactId});
         }
 
         @Override

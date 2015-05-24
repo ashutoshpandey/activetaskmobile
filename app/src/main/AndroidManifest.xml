@@ -52,7 +52,7 @@
                 android:value="com.activetasks.activity.MainActivity" />
         </activity>
         <activity
-            android:name="com.activetasks.activity.TaskDataActivity"
+            android:name="com.activetasks.activity.TaskItemsActivity"
             android:label="" >
         </activity>
         <activity
@@ -90,6 +90,14 @@
         <activity
             android:name="com.activetasks.activity.TaskItemMessageActivity"
             android:label="@string/title_activity_task_item_message" >
+        </activity>
+        <activity
+            android:name="com.activetasks.activity.RegistrationActivity"
+            android:label="@string/title_activity_registration" >
+        </activity>
+        <activity
+            android:name="com.activetasks.activity.RegisteredActivity"
+            android:label="@string/title_activity_registered" >
         </activity>
     </application>
 

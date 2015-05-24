@@ -26,7 +26,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 	private HashSet<Integer> selectedContacts = new HashSet<>();
 
 	public ContactAdapter(Activity act, List<Contact> arrayList) {
-        super(act, R.layout.layout_list_group_member, arrayList);
+        super(act, R.layout.layout_list_contact, arrayList);
 		this.activity = act;
 		this.items = arrayList;
 	}
@@ -39,7 +39,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 		if (view == null) {
 			LayoutInflater inflater = (LayoutInflater) activity
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			view = inflater.inflate(R.layout.layout_list_group_member, null);
+			view = inflater.inflate(R.layout.layout_list_contact, null);
 
 			holder = new ViewHolder();
 			view.setTag(holder);

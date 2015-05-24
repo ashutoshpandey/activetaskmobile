@@ -149,7 +149,6 @@ public class MemberActivity extends ActionBarActivity {
         }
     }
 
-
     class RemoveGroupMemberTask implements JsonReaderSupport {
 
         private String url = "http://10.0.2.2/activetask/data-remove-group-members/" + Data.userId;

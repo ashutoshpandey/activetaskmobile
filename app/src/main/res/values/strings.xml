@@ -18,5 +18,7 @@
     <string name="title_activity_contact_selector">Choose your contact(s)</string>
     <string name="title_activity_group_selector">Choose a group</string>
     <string name="title_activity_task_item_message">TaskItemMessageActivity</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="title_activity_registered">RegisteredActivity</string>
 
 </resources>

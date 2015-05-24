@@ -28,7 +28,10 @@ public class LoginActivity extends Activity {
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mEmailLoginFormView;
+
     private Button mSignInButton;
+    private Button btnRegister;
+
     private TextView tvMessage;
 
     @Override
@@ -36,14 +39,23 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Find the Google+ sign in button.
         mSignInButton = (Button) findViewById(R.id.btnLogin);
+        btnRegister = (Button) findViewById(R.id.btnRegister);
+
         mPasswordView = (EditText) findViewById(R.id.password);
 
         mEmailView = (AutoCompleteTextView)findViewById(R.id.email);
         mPasswordView = (EditText)findViewById(R.id.password);
 
         tvMessage = (TextView)findViewById(R.id.tvMessage);
+
+        btnRegister.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(i);
+            }
+        });
 
         mSignInButton.setOnClickListener(new OnClickListener() {
             @Override

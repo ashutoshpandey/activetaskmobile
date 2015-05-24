@@ -7,6 +7,7 @@ public class TaskItem {
 
     private String description;
     private String assignedTo;
+    private String assignedName;
     private String startDate;
     private String endDate;
     private Integer id;
@@ -49,5 +50,13 @@ public class TaskItem {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getAssignedName() {
+        return assignedName;
+    }
+
+    public void setAssignedName(String assignedName) {
+        this.assignedName = assignedName;
     }
 }

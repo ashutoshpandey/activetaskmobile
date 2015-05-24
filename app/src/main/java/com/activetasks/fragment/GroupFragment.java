@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.activetasks.activetasks.R;
 import com.activetasks.activity.LoginActivity;
@@ -36,7 +37,9 @@ public class GroupFragment extends Fragment {
 
     private List<Group> groups = new ArrayList<>();
     private GroupAdapter groupAdapter;
+
     private ListView groupListView;
+    private TextView tvGroupLabel;
 
     public GroupFragment() {
     }
@@ -47,6 +50,8 @@ public class GroupFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_group, container, false);
 
         groupListView = (ListView)rootView.findViewById(R.id.listViewGroup);
+        tvGroupLabel = (TextView)rootView.findViewById(R.id.tvGroupLabel);
+
         groupListView.setOnItemClickListener(new ListClickHandler());
 
         groupAdapter = new GroupAdapter(getActivity(), groups);
@@ -99,9 +104,14 @@ public class GroupFragment extends Fragment {
                         groups.add(group);
                     }
 
+                    tvGroupLabel.setText("Listing your groups");
+
                     groupAdapter.notifyDataSetChanged();
                 }
                 else if(message.toLowerCase().contains("empty")){
+
+                    tvGroupLabel.setText("You have not created any groups");
+
                     groups.clear();
                     groupAdapter.notifyDataSetChanged();
                 }
