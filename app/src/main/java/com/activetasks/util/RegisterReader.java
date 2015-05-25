@@ -52,8 +52,8 @@ public class RegisterReader extends AsyncTask<String, Integer, String> {
 
             List<NameValuePair> data = new ArrayList<NameValuePair>();
             data.add(new BasicNameValuePair("email", email));
-            data.add(new BasicNameValuePair("firstName", firstName));
-            data.add(new BasicNameValuePair("lastName", lastName));
+            data.add(new BasicNameValuePair("first_name", firstName));
+            data.add(new BasicNameValuePair("last_name", lastName));
             data.add(new BasicNameValuePair("password", password));
             data.add(new BasicNameValuePair("gender", gender));
             data.add(new BasicNameValuePair("country", ""));

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.activetasks.util.RegisterReader;
 import com.activetasks.util.RemoveGroupMemberReader;
 
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public class RegistrationActivity extends ActionBarActivity {
 
@@ -77,7 +79,7 @@ public class RegistrationActivity extends ActionBarActivity {
 
         tvRegistrationMessage.setText("Checking...");
 
-        if(email.length()==0){
+        if(email.length()==0 || !isValidEmail(email)){
             tvRegistrationMessage.setText("Invalid email!");
             return;
         }
@@ -99,16 +101,21 @@ public class RegistrationActivity extends ActionBarActivity {
         }
 
         if(email.length()==0){
-            tvRegistrationMessage.setText("Invalie email!");
+            tvRegistrationMessage.setText("Invalid email!");
             return;
         }
-Log.d("registering", email + " , " + firstName + " , " + lastName + " , " + password + " , " + gender);
+
         new RegisterTask(email, firstName, lastName, password, gender).execute();
+    }
+
+    public boolean isValidEmail(String email){
+
+        return email==null ? false : Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     class RegisterTask implements JsonReaderSupport {
 
-        private String url = Data.server + "data-save-user/";
+        private String url = Data.server + "data-save-user";
 
         private String email;
         private String firstName;
@@ -132,7 +139,7 @@ Log.d("registering", email + " , " + firstName + " , " + lastName + " , " + pass
 
         @Override
         public void onJsonReadComplete(String message) {
-Log.d("register result = ", message);
+
             try {
                 if(message.toLowerCase().contains("created")) {
                     Intent i = new Intent(RegistrationActivity.this, RegisteredActivity.class);
