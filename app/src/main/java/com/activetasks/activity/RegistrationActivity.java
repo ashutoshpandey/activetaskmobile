@@ -1,6 +1,8 @@
 package com.activetasks.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -134,7 +136,10 @@ public class RegistrationActivity extends ActionBarActivity {
         public void execute(){
 
             RegisterReader reader = new RegisterReader(this, url);
-            reader.execute(email, firstName, lastName, password, gender);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                reader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new String[]{email, firstName, lastName, password, gender});
+            else
+                reader.execute(new String[]{email, firstName, lastName, password, gender});
         }
 
         @Override

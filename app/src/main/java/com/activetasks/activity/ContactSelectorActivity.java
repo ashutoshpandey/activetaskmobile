@@ -1,6 +1,8 @@
 package com.activetasks.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +21,7 @@ import com.activetasks.pojo.Contact;
 import com.activetasks.util.ContactReader;
 import com.activetasks.util.Data;
 import com.activetasks.util.JsonReaderSupport;
+import com.activetasks.util.SimpleDataReader;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -94,8 +97,11 @@ Log.d("selected contacts = ", ids);
         }
 
         public void execute(){
-            ContactReader reader = new ContactReader(this, url);
-            reader.execute();
+            SimpleDataReader reader = new SimpleDataReader(this, url);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                reader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            else
+                reader.execute();
         }
 
         @Override

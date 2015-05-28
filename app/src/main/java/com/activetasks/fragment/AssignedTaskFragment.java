@@ -5,6 +5,8 @@ package com.activetasks.fragment;
  */
 
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -106,7 +108,10 @@ public class AssignedTaskFragment extends Fragment {
 
         public void execute(){
             SimpleDataReader reader = new SimpleDataReader(this, url);
-            reader.execute();
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                reader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            else
+                reader.execute();
         }
 
         @Override

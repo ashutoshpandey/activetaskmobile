@@ -5,6 +5,8 @@ package com.activetasks.fragment;
  */
 
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,6 +28,7 @@ import com.activetasks.pojo.Task;
 import com.activetasks.util.Data;
 import com.activetasks.util.GroupReader;
 import com.activetasks.util.JsonReaderSupport;
+import com.activetasks.util.SimpleDataReader;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -105,8 +108,11 @@ public class TaskFragment extends Fragment {
         }
 
         public void execute(){
-            GroupReader reader = new GroupReader(this, url);
-            reader.execute();
+            SimpleDataReader reader = new SimpleDataReader(this, url);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                reader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            else
+                reader.execute();
         }
 
         @Override

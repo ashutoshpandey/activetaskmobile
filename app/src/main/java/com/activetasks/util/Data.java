@@ -10,5 +10,6 @@ import java.util.List;
  */
 public class Data {
     public static Integer userId;
-    public static String server = "http://10.0.2.2/activetask/";
+//    public static String server = "http://10.0.2.2/activetask/";
+    public static String server = "http://helpmyskills.com/activetask/";
 }

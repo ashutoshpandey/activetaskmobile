@@ -3,6 +3,8 @@ package com.activetasks.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -212,7 +214,10 @@ public class TaskDataUpdateActivity extends ActionBarActivity {
 
         public void execute(){
             TaskCommentReader reader = new TaskCommentReader(this, url);
-            reader.execute(new String[]{message, type, taskItemId, contactId});
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                reader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new String[]{message, type, taskItemId, contactId});
+            else
+                reader.execute(new String[]{message, type, taskItemId, contactId});
         }
 
         @Override

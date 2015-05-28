@@ -2,6 +2,8 @@ package com.activetasks.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -175,7 +177,10 @@ public class CreateContactActivity extends Activity {
         public void execute(){
             tvFindContactMessage.setText("");
             AddContactReader reader = new AddContactReader(this, url);
-            reader.execute(foundUserId);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                reader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, foundUserId);
+            else
+                reader.execute(foundUserId);
         }
 
         @Override

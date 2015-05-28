@@ -2,6 +2,8 @@ package com.activetasks.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -19,6 +21,7 @@ import com.activetasks.util.GroupMemberReader;
 import com.activetasks.util.GroupReader;
 import com.activetasks.util.JsonReaderSupport;
 import com.activetasks.util.RemoveGroupMemberReader;
+import com.activetasks.util.SimpleDataReader;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -95,8 +98,11 @@ public class MemberActivity extends ActionBarActivity {
 
         public void execute(){
 
-            GroupMemberReader reader = new GroupMemberReader(this, url);
-            reader.execute();
+            SimpleDataReader reader = new SimpleDataReader(this, url);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                reader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            else
+                reader.execute();
         }
 
         @Override

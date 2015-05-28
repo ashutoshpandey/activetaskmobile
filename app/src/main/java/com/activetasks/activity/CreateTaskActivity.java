@@ -4,6 +4,8 @@ import com.activetasks.activity.util.SystemUiHider;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -108,7 +110,10 @@ public class CreateTaskActivity extends Activity {
                 tvCreateTaskMessage.setText("Creating");
 
                 CreateTaskReader reader = new CreateTaskReader(this, url);
-                reader.execute(new String[]{mName, mDescription, mTaskType, mStartDate, mEndDate});
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                    reader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new String[]{mName, mDescription, mTaskType, mStartDate, mEndDate});
+                else
+                    reader.execute(new String[]{mName, mDescription, mTaskType, mStartDate, mEndDate});
             }
             else
                 tvCreateTaskMessage.setText("Form is incomplete");

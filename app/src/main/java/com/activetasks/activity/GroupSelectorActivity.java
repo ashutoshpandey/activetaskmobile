@@ -1,6 +1,8 @@
 package com.activetasks.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -16,6 +18,7 @@ import com.activetasks.pojo.Group;
 import com.activetasks.util.GroupReader;
 import com.activetasks.util.Data;
 import com.activetasks.util.JsonReaderSupport;
+import com.activetasks.util.SimpleDataReader;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -77,8 +80,11 @@ public class GroupSelectorActivity extends ActionBarActivity {
         }
 
         public void execute(){
-            GroupReader reader = new GroupReader(this, url);
-            reader.execute();
+            SimpleDataReader reader = new SimpleDataReader(this, url);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                reader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            else
+                reader.execute();
         }
 
         @Override

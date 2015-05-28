@@ -3,6 +3,8 @@ package com.activetasks.activity;
 import android.app.Activity;
 import android.content.Intent;
 
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -107,7 +109,10 @@ public class LoginActivity extends Activity {
 
             tvMessage.setText("Checking");
             LoginReader reader = new LoginReader(this, url);
-            reader.execute(new String[]{mEmail, mPassword});
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                reader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new String[]{mEmail, mPassword});
+            else
+                reader.execute(new String[]{mEmail, mPassword});
         }
 
         @Override

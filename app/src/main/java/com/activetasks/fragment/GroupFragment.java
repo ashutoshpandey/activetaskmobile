@@ -5,6 +5,8 @@ package com.activetasks.fragment;
  */
 
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -76,7 +78,10 @@ public class GroupFragment extends Fragment {
 
         public void execute(){
             GroupReader reader = new GroupReader(this, url);
-            reader.execute();
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                reader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            else
+                reader.execute();
         }
 
         @Override

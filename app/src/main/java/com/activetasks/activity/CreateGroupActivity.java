@@ -5,6 +5,7 @@ import com.activetasks.activity.util.SystemUiHider;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -72,8 +73,13 @@ public class CreateGroupActivity extends Activity {
 
             if(mName.trim().length()>0) {
                 tvCreateGroupMessage.setText("Creating");
+
                 CreateGroupReader reader = new CreateGroupReader(this, url);
-                reader.execute(new String[]{mName});
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                    reader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mName);
+                else
+                    reader.execute(mName);
             }
             else
                 tvCreateGroupMessage.setText("Name cannot be blank");
