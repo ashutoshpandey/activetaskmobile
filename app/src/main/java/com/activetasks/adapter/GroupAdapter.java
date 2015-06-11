@@ -7,12 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.activetasks.activetasks.R;
+import activetasks.activetasks.R;
 import com.activetasks.pojo.Group;
-import com.activetasks.pojo.Task;
 
 import java.util.List;
 

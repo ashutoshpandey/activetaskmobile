@@ -1,6 +1,5 @@
 package com.activetasks.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -13,12 +12,10 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.activetasks.activetasks.R;
+import activetasks.activetasks.R;
 import com.activetasks.adapter.MemberAdapter;
 import com.activetasks.pojo.GroupMember;
 import com.activetasks.util.Data;
-import com.activetasks.util.GroupMemberReader;
-import com.activetasks.util.GroupReader;
 import com.activetasks.util.JsonReaderSupport;
 import com.activetasks.util.RemoveGroupMemberReader;
 import com.activetasks.util.SimpleDataReader;
@@ -150,7 +147,7 @@ public class MemberActivity extends ActionBarActivity {
                 }
             }
             catch(Exception ex){
-                Log.d("Group ex", ex.getMessage());
+                Log.d("Group member ex", ex.getMessage());
             }
         }
     }

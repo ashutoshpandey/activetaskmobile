@@ -9,8 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.activetasks.activetasks.R;
-import com.activetasks.pojo.TaskItem;
+import activetasks.activetasks.R;
 import com.activetasks.pojo.TaskUpdateItem;
 
 import java.util.List;

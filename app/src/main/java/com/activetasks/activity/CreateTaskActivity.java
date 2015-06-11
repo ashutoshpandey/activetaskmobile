@@ -1,21 +1,18 @@
 package com.activetasks.activity;
 
-import com.activetasks.activity.util.SystemUiHider;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.activetasks.activetasks.R;
-import com.activetasks.util.ContactSelectorReader;
+import activetasks.activetasks.R;
+import com.activetasks.activity.util.SystemUiHider;
 import com.activetasks.util.CreateTaskReader;
 import com.activetasks.util.Data;
 import com.activetasks.util.JsonReaderSupport;

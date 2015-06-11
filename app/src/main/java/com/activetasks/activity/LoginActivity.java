@@ -2,11 +2,9 @@ package com.activetasks.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
@@ -14,11 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.activetasks.util.LoginReader;
-import com.activetasks.util.JsonReaderSupport;
+import activetasks.activetasks.R;
 import com.activetasks.util.Data;
-
-import com.activetasks.activetasks.R;
+import com.activetasks.util.JsonReaderSupport;
+import com.activetasks.util.LoginReader;
 
 import org.json.JSONObject;
 

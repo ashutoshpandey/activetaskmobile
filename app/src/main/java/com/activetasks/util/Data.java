@@ -1,10 +1,5 @@
 package com.activetasks.util;
 
-import com.activetasks.pojo.Contact;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by ashutosh on 07/05/2015.
  */

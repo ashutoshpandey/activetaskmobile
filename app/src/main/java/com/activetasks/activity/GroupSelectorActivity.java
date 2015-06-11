@@ -13,9 +13,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.activetasks.activetasks.R;
+import activetasks.activetasks.R;
 import com.activetasks.pojo.Group;
-import com.activetasks.util.GroupReader;
 import com.activetasks.util.Data;
 import com.activetasks.util.JsonReaderSupport;
 import com.activetasks.util.SimpleDataReader;
@@ -128,7 +127,8 @@ public class GroupSelectorActivity extends ActionBarActivity {
 
             }
             catch(Exception ex){
-                Log.d("Group ex", ex.getMessage());
+                Log.d("Group selector ex", ex.getMessage());
+                ex.printStackTrace();
             }
         }
     }

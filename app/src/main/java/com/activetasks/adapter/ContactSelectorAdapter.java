@@ -11,9 +11,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.activetasks.activetasks.R;
+import activetasks.activetasks.R;
 import com.activetasks.pojo.Contact;
-import com.activetasks.pojo.GroupMember;
 
 import java.util.HashSet;
 import java.util.List;

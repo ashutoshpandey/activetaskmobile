@@ -17,14 +17,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.activetasks.activetasks.R;
+import activetasks.activetasks.R;
 import com.activetasks.activity.LoginActivity;
 import com.activetasks.activity.MemberActivity;
-import com.activetasks.util.GroupReader;
-import com.activetasks.util.JsonReaderSupport;
 import com.activetasks.adapter.GroupAdapter;
 import com.activetasks.pojo.Group;
 import com.activetasks.util.Data;
+import com.activetasks.util.GroupReader;
+import com.activetasks.util.JsonReaderSupport;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -127,7 +127,7 @@ public class GroupFragment extends Fragment {
 
             }
             catch(Exception ex){
-                Log.d("Group ex", ex.getMessage());
+                Log.d("Group frag ex", ex.getMessage());
             }
         }
     }

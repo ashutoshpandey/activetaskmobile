@@ -3,26 +3,20 @@ package com.activetasks.activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.activetasks.activetasks.R;
+import activetasks.activetasks.R;
 import com.activetasks.util.Data;
 import com.activetasks.util.JsonReaderSupport;
 import com.activetasks.util.RegisterReader;
-import com.activetasks.util.RemoveGroupMemberReader;
-
-import java.util.Set;
-import java.util.regex.Pattern;
 
 public class RegistrationActivity extends ActionBarActivity {
 

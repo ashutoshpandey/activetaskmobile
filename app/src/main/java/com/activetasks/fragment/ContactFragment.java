@@ -17,13 +17,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.activetasks.activetasks.R;
+import activetasks.activetasks.R;
 import com.activetasks.activity.LoginActivity;
 import com.activetasks.adapter.ContactAdapter;
 import com.activetasks.pojo.Contact;
+import com.activetasks.util.ContactReader;
 import com.activetasks.util.Data;
 import com.activetasks.util.JsonReaderSupport;
-import com.activetasks.util.ContactReader;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

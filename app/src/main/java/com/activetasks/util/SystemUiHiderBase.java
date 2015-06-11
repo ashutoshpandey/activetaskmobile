@@ -1,4 +1,4 @@
-package com.activetasks.activetasks.util;
+package com.activetasks.util;
 
 import android.app.Activity;
 import android.view.View;

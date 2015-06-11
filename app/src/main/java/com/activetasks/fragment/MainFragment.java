@@ -4,7 +4,6 @@ package com.activetasks.fragment;
  * Created by ashutosh on 06/05/2015.
  */
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,16 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.activetasks.activetasks.R;
-import com.activetasks.activity.LoginActivity;
-import com.activetasks.helper.DateHelper;
-import com.activetasks.pojo.Task;
+import activetasks.activetasks.R;
 import com.activetasks.util.Data;
-import com.activetasks.util.GroupReader;
 import com.activetasks.util.JsonReaderSupport;
 import com.activetasks.util.PendingTasksCountReader;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -83,7 +77,7 @@ public class MainFragment extends Fragment {
                 tvTasksRemaining.setText("Tasks remaining = " + count);
             }
             catch(Exception ex){
-                Log.d("Group ex", ex.getMessage());
+                Log.d("Remaining task ex", ex.getMessage());
             }
         }
     }
@@ -94,7 +88,7 @@ public class MainFragment extends Fragment {
      */
     class GroupCountReadTask implements JsonReaderSupport {
 
-        private String url = "http://10.0.2.2/activetask/data-all-groups-count/" + Data.userId;
+        private String url = Data.server + "data-all-groups-count/" + Data.userId;
 
         public GroupCountReadTask() {
             execute();
@@ -116,7 +110,7 @@ public class MainFragment extends Fragment {
                 tvGroupsCreated.setText("Groups created = " + count);
             }
             catch(Exception ex){
-                Log.d("Group ex", ex.getMessage());
+                Log.d("Group count ex", ex.getMessage());
             }
         }
     }

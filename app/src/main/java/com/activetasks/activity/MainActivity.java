@@ -1,33 +1,26 @@
 package com.activetasks.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.activetasks.activetasks.R;
+import activetasks.activetasks.R;
 import com.activetasks.adapter.TabsPagerAdapter;
-import com.activetasks.adapter.TaskAdapter;
 import com.activetasks.fragment.ContactFragment;
-import com.activetasks.pojo.Task;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
+     * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which will keep every
      * loaded fragment in memory. If this becomes too memory intensive, it
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
@@ -44,7 +37,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     private ListView listViewTask;
 
     /**
-     * The {@link ViewPager} that will host the section contents.
+     * The {@link android.support.v4.view.ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
 
@@ -115,13 +108,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     @Override
     public void onTabSelected(Tab tab, FragmentTransaction fragmentTransaction) {
         viewPager.setCurrentItem(tab.getPosition());
-
-        int index = viewPager.getCurrentItem();
-
-        if(index==4) {
-            ContactFragment contactFragment = (ContactFragment) mAdapter.getItem(index);
-            contactFragment.loadContacts();
-        }
     }
 
     @Override

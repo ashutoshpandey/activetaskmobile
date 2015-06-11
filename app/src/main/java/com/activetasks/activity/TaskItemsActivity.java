@@ -3,22 +3,21 @@ package com.activetasks.activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.activetasks.activetasks.R;
+
 import com.activetasks.adapter.TaskItemAdapter;
 import com.activetasks.helper.DateHelper;
 import com.activetasks.pojo.TaskItem;
 import com.activetasks.util.Data;
-import com.activetasks.util.GroupMemberReader;
 import com.activetasks.util.JsonReaderSupport;
 import com.activetasks.util.SimpleDataReader;
 
@@ -29,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import activetasks.activetasks.R;
 
 public class TaskItemsActivity extends ActionBarActivity {
 

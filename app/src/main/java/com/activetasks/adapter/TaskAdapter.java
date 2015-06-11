@@ -1,7 +1,5 @@
 package com.activetasks.adapter;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
@@ -11,9 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.activetasks.activetasks.R;
 
+import activetasks.activetasks.R;
 import com.activetasks.pojo.Task;
+
+import java.util.List;
 
 public class TaskAdapter extends ArrayAdapter<Task> {
 

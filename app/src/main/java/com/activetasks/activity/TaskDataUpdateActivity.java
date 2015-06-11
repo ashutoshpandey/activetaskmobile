@@ -1,7 +1,5 @@
 package com.activetasks.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -14,17 +12,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.activetasks.activetasks.R;
+import activetasks.activetasks.R;
 import com.activetasks.adapter.TaskDataUpdateAdapter;
-import com.activetasks.adapter.TaskItemAdapter;
 import com.activetasks.helper.DateHelper;
-import com.activetasks.pojo.Task;
-import com.activetasks.pojo.TaskItem;
 import com.activetasks.pojo.TaskUpdateItem;
 import com.activetasks.util.Data;
-import com.activetasks.util.GroupMemberReader;
 import com.activetasks.util.JsonReaderSupport;
 import com.activetasks.util.TaskAssignedReader;
 import com.activetasks.util.TaskCommentReader;

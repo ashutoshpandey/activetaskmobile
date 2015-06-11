@@ -3,16 +3,14 @@ package com.activetasks.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.activetasks.activetasks.R;
-import com.activetasks.pojo.GroupMember;
+import activetasks.activetasks.R;
 import com.activetasks.pojo.Contact;
 
 import java.util.HashSet;
@@ -52,7 +50,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 
 		contact = items.get(position);
 
-		holder.name = (TextView) view.findViewById(R.id.tvMember);
+		holder.name = (TextView) view.findViewById(R.id.tvContact);
 
 		if (holder.name != null && null != contact.getName()
 				&& contact.getName().trim().length() > 0) {

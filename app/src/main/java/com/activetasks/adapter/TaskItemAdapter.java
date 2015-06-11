@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.activetasks.activetasks.R;
+import activetasks.activetasks.R;
 import com.activetasks.helper.DateHelper;
 import com.activetasks.pojo.TaskItem;
 
@@ -59,7 +59,7 @@ public class TaskItemAdapter extends ArrayAdapter<TaskItem> {
 				&& taskItem.getDescription().trim().length() > 0) {
 			holder.description.setText(Html.fromHtml(taskItem.getDescription()));
 		}
-        Log.d("null checking", ((null != holder.assignedName)  + " , " + (null != taskItem.getAssignedName())
+        Log.d("null checking", ((null != holder.assignedName) + " , " + (null != taskItem.getAssignedName())
                 + " , " + (taskItem.getAssignedName().trim().length() > 0)));
 
         if (null != holder.assignedName  && null != taskItem.getAssignedName()

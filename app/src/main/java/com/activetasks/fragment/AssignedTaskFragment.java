@@ -19,7 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.activetasks.activetasks.R;
+import activetasks.activetasks.R;
 import com.activetasks.activity.LoginActivity;
 import com.activetasks.activity.TaskDataUpdateActivity;
 import com.activetasks.adapter.TaskAssignedAdapter;
